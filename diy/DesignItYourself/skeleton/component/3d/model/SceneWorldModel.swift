@@ -93,6 +93,11 @@ class SceneWorldModel:ObservableObject, PageProtocol{
         if let data = userData {
             self.nodeDatas[key] = data
         }
+        /*
+        node.physicsBody = .dynamic()
+        node.physicsBody?.isAffectedByGravity = false
+        node.physicsBody?.friction = 0
+         */
         self.scene.rootNode.addChildNode(node)
     }
     

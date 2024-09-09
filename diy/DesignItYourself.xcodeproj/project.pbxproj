@@ -151,6 +151,8 @@
 		31831E732C7BF2D900D9C568 /* SCNNode_Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31831E722C7BF2D900D9C568 /* SCNNode_Extention.swift */; };
 		31831E772C7C6B3100D9C568 /* SceneWorldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31831E762C7C6B3100D9C568 /* SceneWorldModel.swift */; };
 		318A408B2C8528AB001BA2B7 /* MyFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318A408A2C8528AB001BA2B7 /* MyFileManager.swift */; };
+		318B794A2C8EBB89001794A9 /* PageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318B79492C8EBB89001794A9 /* PageStore.swift */; };
+		318B794D2C8EBC5F001794A9 /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318B794C2C8EBC5F001794A9 /* Material.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -311,6 +313,8 @@
 		31831E722C7BF2D900D9C568 /* SCNNode_Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNNode_Extention.swift; sourceTree = "<group>"; };
 		31831E762C7C6B3100D9C568 /* SceneWorldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneWorldModel.swift; sourceTree = "<group>"; };
 		318A408A2C8528AB001BA2B7 /* MyFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFileManager.swift; sourceTree = "<group>"; };
+		318B79492C8EBB89001794A9 /* PageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStore.swift; sourceTree = "<group>"; };
+		318B794C2C8EBC5F001794A9 /* Material.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Material.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -358,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				317CE13C2C64419F00CEAD74 /* PageFactory.swift */,
+				318B79492C8EBB89001794A9 /* PageStore.swift */,
 				317CE13D2C64419F00CEAD74 /* PageHome.swift */,
 			);
 			path = page;
@@ -366,6 +371,7 @@
 		317CE1462C64419F00CEAD74 /* screen */ = {
 			isa = PBXGroup;
 			children = (
+				318B794B2C8EBC1E001794A9 /* component */,
 				317CE1442C64419F00CEAD74 /* page */,
 				317CE1452C64419F00CEAD74 /* ScreenView.swift */,
 			);
@@ -900,6 +906,14 @@
 			path = manager;
 			sourceTree = "<group>";
 		};
+		318B794B2C8EBC1E001794A9 /* component */ = {
+			isa = PBXGroup;
+			children = (
+				318B794C2C8EBC5F001794A9 /* Material.swift */,
+			);
+			path = component;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1083,6 +1097,7 @@
 				317CE1852C64419F00CEAD74 /* LocalStorage.swift in Sources */,
 				3181A2ED2C63377500312CCF /* ScrollLazeStack.swift in Sources */,
 				3181A2032C632C8B00312CCF /* UnitUtil.swift in Sources */,
+				318B794D2C8EBC5F001794A9 /* Material.swift in Sources */,
 				317FF5F82BFAEB560012E929 /* DesignItYourself.xcdatamodeld in Sources */,
 				3181A2722C632D1300312CCF /* FillButton.swift in Sources */,
 				3181A2752C632D1300312CCF /* RectButton.swift in Sources */,
@@ -1154,6 +1169,7 @@
 				3181A2762C632D1300312CCF /* SelectButton.swift in Sources */,
 				3181A2AD2C632D1300312CCF /* KeychainItem.swift in Sources */,
 				3181A29A2C632D1300312CCF /* StarRate.swift in Sources */,
+				318B794A2C8EBB89001794A9 /* PageStore.swift in Sources */,
 				3181A2972C632D1300312CCF /* CircularSpinner.swift in Sources */,
 				310F96062C6F06FE00D5D188 /* SceneFactory.swift in Sources */,
 				3181A2B72C632D1300312CCF /* RatioSize.swift in Sources */,

@@ -41,6 +41,7 @@ struct NodeTransform : View{
             HStack(){
                 Text("X")
                     .onTapGesture {
+                        if self.isBreakGroup { return }
                         self.transformNodes.forEach{$0.setX()}
                     }
                 Text("  <<| ").foregroundColor(.white).background(Color.blue)
@@ -55,6 +56,7 @@ struct NodeTransform : View{
             HStack(){
                 Text("Y")
                     .onTapGesture {
+                        if self.isBreakGroup { return }
                         self.transformNodes.forEach{$0.setY()}
                     }
                 Text("  <<| ").foregroundColor(.white).background(Color.yellow)
@@ -69,6 +71,7 @@ struct NodeTransform : View{
             HStack(){
                 Text("Z")
                     .onTapGesture {
+                        if self.isBreakGroup { return }
                         self.transformNodes.forEach{$0.setZ()}
                     }
                 Text("  <<| ").foregroundColor(.white).background(Color.red)
@@ -105,54 +108,45 @@ struct NodeTransform : View{
     private func updateSelectNodes(_ nodes:[SCNNode]){
         if let select = nodes.first {
             self.transformNodes = nodes
-            if nodes.count > 1 {
-                self.transformPropertys = []
-                var currentGroup:String? = nil
-                if nodes.first(where: { n in
-                    guard let key = n.name else {return false}
-                    let keys = key.components(separatedBy: "_")
-                    if keys.count == 2, let gid = keys.last {
-                        if let current = currentGroup {
-                            return current != gid
-                        } else {
-                            currentGroup = gid
-                            return false
-                        }
-                    } else {
-                        return true
-                    }
-                }) == nil {
-                    self.isBreakGroup = true
-                    self.isBindingGroup = false
-                } else {
-                    self.isBindingGroup = true
-                    self.isBreakGroup = false
-                }
-        
-            } else {
-                let pro = self.viewModel.getNodeData(select)?.type.hasProperty
-                self.transformPropertys = pro ?? []
-                self.isBindingGroup = false
-                self.isBreakGroup = false
-            }
-        } else {
-            self.isBindingGroup = false
-            self.isBreakGroup = false
+       } else {
             let all = self.viewModel.getAllNodes()
             self.transformNodes = all
-            if all.count > 1 {
-                self.transformPropertys = []
-            } else if let select = all.first {
-                self.transformPropertys = self.viewModel.getNodeData(select)?.type.hasProperty ?? []
-            } else {
-                self.transformPropertys = []
-            }
+            
         }
         if self.transformNodes.count > 1 {
+            self.transformPropertys = []
+            var currentGroup:String? = nil
+            if self.transformNodes.first(where: { n in
+                guard let key = n.name else {return false}
+                let keys = key.components(separatedBy: "_")
+                if keys.count == 2, let gid = keys.last {
+                    if let current = currentGroup {
+                        return current != gid
+                    } else {
+                        currentGroup = gid
+                        return false
+                    }
+                } else {
+                    return true
+                }
+            }) == nil {
+                self.isBreakGroup = true
+                self.isBindingGroup = false
+            } else {
+                self.isBindingGroup = true
+                self.isBreakGroup = false
+            }
             self.isCreatObject = self.transformNodes.first(where: {
                 self.viewModel.getNodeData($0)?.type.isObject == true
             }) == nil
         } else {
+            if let select = self.transformNodes.first {
+                self.transformPropertys = self.viewModel.getNodeData(select)?.type.hasProperty ?? []
+            } else {
+                self.transformPropertys = []
+            }
+            self.isBindingGroup = false
+            self.isBreakGroup = false
             self.isCreatObject = false
         }
         

@@ -123,7 +123,7 @@ struct SceneWorld : View{
             cameraNode.simdPosition = simd_float3(0,0,30)
             scene.rootNode.addChildNode(cameraNode)
             scene.rootNode.addChildNode(CoordinateGrid())
-            
+            //scene.physicsWorld.gravity = 
             
             self.camera = cameraNode
             self.scene = scene
