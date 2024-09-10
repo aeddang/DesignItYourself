@@ -32,6 +32,8 @@ extension Color {
         public static let darkGray =  Color.init(rgb: 0x2A2A2A)
         public static let lightGray =  Color.init(rgb: 0xCCCCCC)
         public static let blue =  Color.blue
+        public static let red =  Color.red
+        public static let yellow =  Color.yellow
     }
     
     struct transparent {

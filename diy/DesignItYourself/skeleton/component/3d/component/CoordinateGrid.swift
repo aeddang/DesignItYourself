@@ -14,7 +14,15 @@ class CoordinateGrid: SCNNode {
         super.init(coder: aDecoder)
     }
     
-    init(length: Float = 40, radius: Float = 0.1, color: (x: Color, y: Color, z: Color, origin: Color) = (.blue, .yellow, .red, .cyan), addPlane: Bool = true) {
+    init(length: Float = 40, radius: Float = 0.1,
+         color: (x: Color, y: Color, z: Color, origin: Color) = (
+            SceneWorldModel.NodeAxis.X.color ,
+            SceneWorldModel.NodeAxis.Y.color ,
+            SceneWorldModel.NodeAxis.Z.color,
+            Color.app.gray
+         ),
+         addPlane: Bool = true)
+    {
         guard let factory =  SceneFactory.shared else {
             super.init()
             return

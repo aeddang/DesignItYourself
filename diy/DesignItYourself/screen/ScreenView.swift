@@ -132,7 +132,7 @@ struct ScreenView: View, PageProtocol {
             .onAppear(){
                 self.updatedPageColorMode()
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                    let addPage = PageProvider.getPageObject(.home)
+                    let addPage = PageProvider.getPageObject(.store)
                     self.pagePresenter.request = .movePage(addPage)
                 }
             }

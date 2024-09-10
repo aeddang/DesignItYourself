@@ -7,7 +7,7 @@
 
 import Foundation
 import SceneKit
-
+import SwiftUI
 class SceneWorldModel:ObservableObject, PageProtocol{
     private(set) static var shared: SceneWorldModel? = nil
     //@Published var status:RepositoryStatus = .initate
@@ -125,7 +125,6 @@ class SceneWorldModel:ObservableObject, PageProtocol{
     }
     
     func addNode(userData:UserData){
-        let key = UUID().uuidString
         let node = self.createNode(userData: userData)
         self.addNode(node, type: userData.type, objectName: userData.type.name)
         userData.history.forEach{ h in
@@ -318,6 +317,26 @@ class SceneWorldModel:ObservableObject, PageProtocol{
             return userData
         }
     }
+    enum NodeAxis {
+        case X, Y, Z
+        var color:Color {
+            switch self {
+            case .X : return Color.app.blue
+            case .Y : return Color.app.red
+            case .Z : return Color.app.yellow
+            }
+        }
+        
+        var name:String {
+            switch self {
+            case .X : return "가로"
+            case .Y : return "세로"
+            case .Z : return "높이"
+            }
+        }
+    }
+    
+    
     enum NodeType:Equatable {
         case box(x:Float = 1, y:Float = 1, z:Float = 1, skin:String? =  nil),
              sphere(r:Float = 1, skin:String? =  nil),
@@ -341,6 +360,17 @@ class SceneWorldModel:ObservableObject, PageProtocol{
             switch self {
             case .object(let name, _) : return name
             default : return nil
+            }
+        }
+        
+        var skin:String? {
+            switch self {
+            case .box(_, _, _, let skin) : return skin
+            case .sphere(_, let skin) : return skin
+            case .cylinder(_, _, let skin) : return skin
+            case .cone(_, _, _, let skin) : return skin
+            case .object(_, let skin) : return skin
+            //default : return nil
             }
         }
         
@@ -452,7 +482,7 @@ class SceneWorldModel:ObservableObject, PageProtocol{
             return self.factory.getCylinder(r:r, h:h).updateSkin(named: skin)
         case .sphere(let r, let skin) : 
             return self.factory.getSphere(r:r).updateSkin(named: skin)
-        case .object(let name, let skin):
+        case .object(_, let skin):
             return SCNNode().updateSkin(named: skin)
         }
     }

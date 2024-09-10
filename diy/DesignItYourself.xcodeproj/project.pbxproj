@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		310F96062C6F06FE00D5D188 /* SceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310F96052C6F06FE00D5D188 /* SceneFactory.swift */; };
+		316C044B2C90150900B79400 /* NodeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316C044A2C90150900B79400 /* NodeScreen.swift */; };
+		316C044D2C901A6300B79400 /* PageStoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316C044C2C901A6300B79400 /* PageStoreItem.swift */; };
+		316C044F2C901CD400B79400 /* MaterialFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316C044E2C901CD400B79400 /* MaterialFoundation.swift */; };
+		316C04512C90293200B79400 /* PageStoreFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316C04502C90293200B79400 /* PageStoreFoundation.swift */; };
 		3179B0A32C76C4AA006CB96A /* CoordinateGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3179B0A22C76C4AA006CB96A /* CoordinateGrid.swift */; };
 		317CE1742C64419F00CEAD74 /* PageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CE13C2C64419F00CEAD74 /* PageFactory.swift */; };
 		317CE1752C64419F00CEAD74 /* PageHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CE13D2C64419F00CEAD74 /* PageHome.swift */; };
@@ -174,6 +178,10 @@
 
 /* Begin PBXFileReference section */
 		310F96052C6F06FE00D5D188 /* SceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneFactory.swift; sourceTree = "<group>"; };
+		316C044A2C90150900B79400 /* NodeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeScreen.swift; sourceTree = "<group>"; };
+		316C044C2C901A6300B79400 /* PageStoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStoreItem.swift; sourceTree = "<group>"; };
+		316C044E2C901CD400B79400 /* MaterialFoundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialFoundation.swift; sourceTree = "<group>"; };
+		316C04502C90293200B79400 /* PageStoreFoundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStoreFoundation.swift; sourceTree = "<group>"; };
 		3179B0A22C76C4AA006CB96A /* CoordinateGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateGrid.swift; sourceTree = "<group>"; };
 		317CE13C2C64419F00CEAD74 /* PageFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageFactory.swift; sourceTree = "<group>"; };
 		317CE13D2C64419F00CEAD74 /* PageHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageHome.swift; sourceTree = "<group>"; };
@@ -363,6 +371,8 @@
 			children = (
 				317CE13C2C64419F00CEAD74 /* PageFactory.swift */,
 				318B79492C8EBB89001794A9 /* PageStore.swift */,
+				316C044C2C901A6300B79400 /* PageStoreItem.swift */,
+				316C04502C90293200B79400 /* PageStoreFoundation.swift */,
 				317CE13D2C64419F00CEAD74 /* PageHome.swift */,
 			);
 			path = page;
@@ -435,6 +445,7 @@
 				317CE18D2C64A1A300CEAD74 /* SceneWorld.swift */,
 				31827E232C7D481F001112DA /* NodeStore.swift */,
 				31827E252C7D8C7A001112DA /* NodeTransform.swift */,
+				316C044A2C90150900B79400 /* NodeScreen.swift */,
 			);
 			path = 3d;
 			sourceTree = "<group>";
@@ -910,6 +921,7 @@
 			isa = PBXGroup;
 			children = (
 				318B794C2C8EBC5F001794A9 /* Material.swift */,
+				316C044E2C901CD400B79400 /* MaterialFoundation.swift */,
 			);
 			path = component;
 			sourceTree = "<group>";
@@ -1072,6 +1084,7 @@
 				3181A1F12C632C8B00312CCF /* ImageLoader.swift in Sources */,
 				317CE1892C64419F00CEAD74 /* SystemEnvironment.swift in Sources */,
 				3181A1E92C632C8B00312CCF /* DialogHandler.swift in Sources */,
+				316C044B2C90150900B79400 /* NodeScreen.swift in Sources */,
 				3181A2792C632D1300312CCF /* TextButton.swift in Sources */,
 				317CE1752C64419F00CEAD74 /* PageHome.swift in Sources */,
 				3181A2902C632D1300312CCF /* PlayerScreenView.swift in Sources */,
@@ -1089,6 +1102,7 @@
 				3181A2B02C632D1300312CCF /* GoogleSignManager.swift in Sources */,
 				3181A26E2C632D1300312CCF /* ARDelegate.swift in Sources */,
 				3181A2852C632D1300312CCF /* CustomAssetPlayer.swift in Sources */,
+				316C04512C90293200B79400 /* PageStoreFoundation.swift in Sources */,
 				3181A28B2C632D1300312CCF /* AVContentKeyProvider.swift in Sources */,
 				3181A26F2C632D1300312CCF /* CPARView.swift in Sources */,
 				3181A27E2C632D1300312CCF /* CustomImagePicker.swift in Sources */,
@@ -1123,6 +1137,7 @@
 				3181A2A52C632D1300312CCF /* SwipperView.swift in Sources */,
 				3181A2B62C632D1300312CCF /* LayoutAlignment.swift in Sources */,
 				3181A1FD2C632C8B00312CCF /* DiskStatus.swift in Sources */,
+				316C044F2C901CD400B79400 /* MaterialFoundation.swift in Sources */,
 				3181A2882C632D1300312CCF /* FairplayResourceLoader.swift in Sources */,
 				3181A28D2C632D1300312CCF /* CPPlayerRemotePlay.swift in Sources */,
 				3181A1F22C632C8B00312CCF /* Network.swift in Sources */,
@@ -1153,6 +1168,7 @@
 				317CE1882C64419F00CEAD74 /* Repository.swift in Sources */,
 				3181A2812C632D1300312CCF /* CpTabDivisionNavigation.swift in Sources */,
 				3181A2942C632D1300312CCF /* PlayerUI.swift in Sources */,
+				316C044D2C901A6300B79400 /* PageStoreItem.swift in Sources */,
 				3181A2AC2C632D1300312CCF /* FaceBookButton.swift in Sources */,
 				3181A1EB2C632C8B00312CCF /* SocialMediaSharingManager.swift in Sources */,
 				317CE1742C64419F00CEAD74 /* PageFactory.swift in Sources */,

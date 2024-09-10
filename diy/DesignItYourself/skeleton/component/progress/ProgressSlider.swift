@@ -19,10 +19,10 @@ struct ProgressSlider: PageView {
     var progressSections:[ProgressSection]? = nil
     var useGesture:Bool = true
     var progressHeight:CGFloat = Dimen.bar.light
-    var thumbSize:CGFloat = 0
+    var thumbSize:CGFloat = 10
     var thumbColor:Color = Color.brand.primary
     var color:Color = Color.brand.primary
-    var bgColor:Color = Color.app.white.opacity(0.15)
+    var bgColor:Color = Color.app.gray.opacity(0.15)
     var radius:CGFloat = Dimen.radius.micro
     var alignment:Alignment = .center
     
@@ -168,7 +168,8 @@ struct ProgressSlider_Previews: PreviewProvider {
         Form{
             ProgressSlider(
                 progress:  0.5,
-                thumbSize: 10
+                thumbSize: 20,
+                bgColor: Color.app.gray
             )
             .frame(width: 375, alignment: .center)
         }

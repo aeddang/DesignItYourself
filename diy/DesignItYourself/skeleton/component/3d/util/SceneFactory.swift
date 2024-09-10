@@ -16,9 +16,9 @@ class SceneFactory {
     private(set) static var shared: SceneFactory? = nil
     let planckLength:Float
     static var planckLength:Float {
-        return Self.shared?.planckLength ?? 0.5
+        return Self.shared?.planckLength ?? 0.005
     }
-    init(planckLength: Float = 0.5) {
+    init(planckLength: Float = 0.005) {
         self.planckLength = planckLength
         Self.shared = self
     }
