@@ -110,11 +110,16 @@ enum PageRequest {
     case closeAllPopup, closePopup
 }
 
+enum PageEvent {
+    case onEvent(Any)
+}
+
 class PagePresenter:ObservableObject, PageProtocol{
     @Published private(set) var currentPage:PageObject? = nil
     @Published private(set) var currentTopPage:PageObject? = nil
     
     @Published var request:PageRequest? = nil
+    @Published var event:PageEvent? = nil {didSet{ if event != nil { event = nil} }}
     @Published var isLoading:Bool = false
     @Published var isLock:Bool = false
     private var pageCount:Int = 0

@@ -29,7 +29,6 @@ struct MaterialGrid: PageView {
         .onAppear(){
         }
     }
-   
 }
 
 class MaterialItemData:InfinityData {
@@ -49,109 +48,18 @@ class MaterialItemData:InfinityData {
         self.info = info
         return self
     }
-    func setFoundation(x:Range<Int>? = nil, y:Range<Int>? = nil, z:Range<Int>? = nil) -> MaterialItemData {
+    func setFoundationDatas(
+        x:Range<Int>? = nil, y:Range<Int>? = nil, z:Range<Int>? = nil,
+        pointX:[Int] = [], pointY:[Int] = [], pointZ:[Int] = []
+    ) -> MaterialItemData {
         self.datas.forEach{
-            $0.setFoundation(x:x, y:y, z:z)
+            $0.setFoundation(x:x, y:y, z:z, pointX: pointX, pointY: pointY, pointZ: pointZ)
         }
         return self
     }
 }
 
-class MaterialData:InfinityData {
-    
-    private(set) var type:SceneWorldModel.NodeType
-    private(set) var title:String? = nil
-    private(set) var text:String? = nil
-    private(set) var price:String? = nil
-    
-    private(set) var foundationX:Range<Int>? = nil
-    private(set) var foundationY:Range<Int>? = nil
-    private(set) var foundationZ:Range<Int>? = nil
-  
-    private(set) var foundationType:SceneWorldModel.NodeType
-    private(set) var foundationCurrentX:Int? = nil
-    private(set) var foundationCurrentY:Int? = nil
-    private(set) var foundationCurrentZ:Int? = nil
-    
-    init(type: SceneWorldModel.NodeType) {
-        self.type = type
-        self.foundationType = type
-    }
-    
-    func setup(title:String? = nil, text:String? = nil, price:String? = nil) -> MaterialData {
-        self.title = title
-        self.text = text
-        self.price = price
-        return self
-    }
-    
-    @discardableResult
-    func setFoundation(x:Range<Int>? = nil, y:Range<Int>? = nil, z:Range<Int>? = nil) -> MaterialData {
-        self.foundationX = x
-        self.foundationY = y
-        self.foundationZ = z
-        return self
-    }
-    
-    // 변경 pct
-    func foundation(x:Float? = nil, y:Float? = nil, z:Float? = nil) -> MaterialData {
-        
-        if let x = x , let foundationX = self.foundationX {
-            self.foundationCurrentX = self.getFoundationValue(range: foundationX, v: x)
-        }
-        if let y = y , let foundationY = self.foundationY {
-            self.foundationCurrentY = self.getFoundationValue(range: foundationY, v: y)
-        }
-        if let z = z , let foundationZ = self.foundationZ {
-            self.foundationCurrentZ = self.getFoundationValue(range: foundationZ, v: z)
-        }
-        switch self.type {
-        case .box(let ox, let oy, let oz, let skin):
-            self.foundationType = .box(
-                x: Float(self.foundationCurrentX ?? Int(ox)),
-                y: Float(self.foundationCurrentY ?? Int(oy)),
-                z: Float(self.foundationCurrentZ ?? Int(oz)), skin: skin)
-            
-            
-        case .cylinder(let r, let h, let skin):
-            self.foundationType = .cylinder(
-                r: r,
-                h: Float(self.foundationCurrentZ ?? Int(h)), skin: skin)
-        case .cone(let r, let br, let h, let skin):
-            self.foundationType = .cone(
-                r: r, br: br,
-                h: Float(self.foundationCurrentZ ?? Int(h)), skin: skin)
-        default : break
-        }
-        return self
-    }
-    
-    // 변경가능한 int로 변환
-    private func getFoundationValue(range:Range<Int>, v:Float) -> Int {
-        let l = range.lowerBound
-        let r = range.upperBound
-        let value = Int(round(Float(r - l) * v)) + l
-        return value
-    }
-        
-    func createFoundationData() -> MaterialData {
-        let data:MaterialData = MaterialData(type: self.foundationType)
-            .setup(title: self.title)
-            .setFoundation(
-                x: self.foundationX == nil ? nil
-                : (self.foundationX?.lowerBound ?? 1)..<(self.foundationCurrentX ?? self.foundationX?.upperBound ?? 10),
-                y: self.foundationY == nil ? nil
-                : (self.foundationY?.lowerBound ?? 1)..<(self.foundationCurrentY ?? self.foundationY?.upperBound ?? 10),
-                z: self.foundationZ == nil ? nil
-                : (self.foundationZ?.lowerBound ?? 1)..<(self.foundationCurrentZ ?? self.foundationZ?.upperBound ?? 10)
-            )
-            
-        
-        
-        return data
-        
-    }
-}
+
 
 struct MaterialGridItem: PageView {
     let data:MaterialItemData

@@ -13,6 +13,7 @@ struct PageStoreItem: PageView {
     @EnvironmentObject var pageObject:PageObject
     @EnvironmentObject var pagePresenter:PagePresenter
     @EnvironmentObject var appSceneObserver:AppSceneObserver
+    @EnvironmentObject var storeModel:StoreModel
     
     @StateObject var infinityScrollModel = InfinityScrollModel()
     var body: some View {

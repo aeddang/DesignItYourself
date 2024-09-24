@@ -105,8 +105,8 @@ struct ScrollLazeStack<Content>: PageView where Content: View {
                 .onPreferenceChange(ScrollOffsetPreferenceKey.self) { value in
                     self.onPreferenceChange(value: value)
                 }
-                .onChange(of: self.scrollIdx, perform: { idx in
-                    guard let idx = idx else {return}
+                .onChange(of: self.scrollIdx){
+                    guard let idx =  self.scrollIdx else {return}
                     if idx == -1 {return}
                     if self.isSmothMove {
                         withAnimation(.easeOut(duration: 0.2)){ reader.scrollTo(idx, anchor: anchor)}
@@ -114,8 +114,7 @@ struct ScrollLazeStack<Content>: PageView where Content: View {
                         reader.scrollTo(idx, anchor: anchor)
                     }
                     self.scrollIdx = -1
-                })
-                
+                }
                 .onReceive(self.viewModel.$uiEvent){ evt in
                     guard let evt = evt else{ return }
                     switch evt {

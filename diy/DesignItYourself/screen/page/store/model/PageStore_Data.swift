@@ -1,59 +1,15 @@
 //
-//  PageHome.swift
-//  globe
+//  PageStore_Data.swift
+//  DesignItYourself
 //
-//  Created by JeongCheol Kim on 2023/09/21.
+//  Created by JeongCheol Kim on 9/24/24.
 //
-import SwiftUI
-import Foundation
 
-struct PageStore: PageView {
-    @EnvironmentObject var locationObserver:LocationObserver
-    @EnvironmentObject var repository:Repository
-    @EnvironmentObject var pageObject:PageObject
-    @EnvironmentObject var pagePresenter:PagePresenter
-    @EnvironmentObject var appSceneObserver:AppSceneObserver
-    
-    @StateObject var viewModel = ViewModel()
-    @StateObject var infinityScrollModel = InfinityScrollModel()
-    var body: some View {
-        VStack(alignment: .leading, spacing: Dimen.margin.regular){
-            Text("Store").modifier(BoldTextStyle(color: Color.brand.content))
-                .padding(.horizontal, Dimen.margin.regular)
-            InfinityScrollView(
-                viewModel: self.infinityScrollModel,
-                axes: .vertical,
-                scrollType: .vertical(),
-                marginBottom:Dimen.margin.medium,
-                marginHorizontal: Dimen.margin.regular,
-                spacing: Dimen.margin.thin,
-                isRecycle: true,
-                useTracking: false
-            ){
-                ForEach(self.viewModel.group, id: \.self){ group in
-                    Section(
-                        header:
-                            Text(group).modifier(MediumTextStyle(color: Color.brand.content))
-                
-                    ){
-                        let datas = self.viewModel.getData(group)
-                        MaterialGrid(datas: datas){ select in
-                            let page:PageObject = PageProvider.getPageObject(.storeItem)
-                                .addParam(key: .data, value: select)
-                            
-                            self.pagePresenter.request = .movePage(page)
-                        }
-                    }
-                }
-            }
-        }
-        .modifier(MatchParent())
-        .background(Color.brand.bg)
-    }
-}
+import Foundation
+import SwiftUI
 
 extension PageStore {
-    class ViewModel:ObservableObject, PageProtocol{
+    class DataModel: PageProtocol{
         var group:[String] = ["Wood", "Metal", "Stone", "ETC"]
         
         func getData(_ group:String) -> [MaterialItemData] {
@@ -72,8 +28,7 @@ extension PageStore {
                         ]
                     )
                     .setup(title: "방부데크재", text: "재단가능")
-                    .setFoundation(z: 1..<3600),
-                    
+                    .setFoundationDatas(z: 100..<3600, pointZ:[1000, 1500, 2000, 3000]),
                     .init(
                         image: "preservativeWood",
                         datas: [
@@ -86,7 +41,7 @@ extension PageStore {
                         ]
                     )
                     .setup(title: "방부각재", text: "재단가능")
-                    .setFoundation(z: 100..<3600),
+                    .setFoundationDatas(z: 100..<3600, pointZ:[1000, 1500, 2000, 3000]),
                     
                     .init(
                         image: "preservativeWood",
@@ -100,7 +55,7 @@ extension PageStore {
                         ]
                     )
                     .setup(title: "방부기둥", text: "재단가능")
-                    .setFoundation(z: 100..<3600),
+                    .setFoundationDatas(z: 100..<3600, pointZ:[1000, 1500, 2000, 3000]),
                 ]
                 
             case "Metal" :
@@ -117,7 +72,7 @@ extension PageStore {
                         ]
                     )
                     .setup(title: "아연각관", text: "재단가능")
-                    .setFoundation(z: 100..<6000)
+                    .setFoundationDatas(z: 100..<6000, pointZ:[1000, 1500, 2000, 3000])
                 ]
                 
             case "Stone" :
@@ -141,6 +96,17 @@ extension PageStore {
                 ]
             }
             
+        }
+        
+        var allDatas:[MaterialData] 
+        {
+            var datas:[MaterialData] = []
+            self.group.forEach{ group in
+                self.getData(group).forEach{ item in
+                    datas.append(contentsOf: item.datas.map{$0})
+                }
+            }
+            return datas
         }
         
     }

@@ -87,6 +87,7 @@ class LocationObserver: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func alertToEncourageLocationAccess(cancel: @escaping () -> Void)
     {
+        /*
         let locationUnavailableAlertController = UIAlertController (
             title: String.alert.requestAccessLocation,
             message: String.alert.requestAccessLocationText,
@@ -107,7 +108,7 @@ class LocationObserver: NSObject, ObservableObject, CLLocationManagerDelegate {
                 
             })
         }
-        
+        */
     }
     /*
     public let kCLLocationAccuracyBestForNavigation: CLLocationAccuracy

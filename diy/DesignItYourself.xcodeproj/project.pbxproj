@@ -154,9 +154,16 @@
 		31827E262C7D8C7A001112DA /* NodeTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31827E252C7D8C7A001112DA /* NodeTransform.swift */; };
 		31831E732C7BF2D900D9C568 /* SCNNode_Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31831E722C7BF2D900D9C568 /* SCNNode_Extention.swift */; };
 		31831E772C7C6B3100D9C568 /* SceneWorldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31831E762C7C6B3100D9C568 /* SceneWorldModel.swift */; };
+		3184DEC42CA227FD006690E2 /* MyMaterialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3184DEC32CA227FD006690E2 /* MyMaterialManager.swift */; };
+		3184DEC72CA22D2C006690E2 /* MaterialData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3184DEC62CA22D2C006690E2 /* MaterialData.swift */; };
+		3184DECB2CA2353A006690E2 /* PageCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3184DECA2CA2353A006690E2 /* PageCreate.swift */; };
+		3184DECD2CA2355F006690E2 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3184DECC2CA2355F006690E2 /* StoreModel.swift */; };
+		3184DED02CA242EF006690E2 /* PageStore_Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3184DECF2CA242EF006690E2 /* PageStore_Data.swift */; };
+		3184DED42CA26D0F006690E2 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 3184DED32CA26D0F006690E2 /* AlertToast */; };
+		3184DED72CA27A97006690E2 /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3184DED62CA27A97006690E2 /* Cart.swift */; };
 		318A408B2C8528AB001BA2B7 /* MyFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318A408A2C8528AB001BA2B7 /* MyFileManager.swift */; };
 		318B794A2C8EBB89001794A9 /* PageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318B79492C8EBB89001794A9 /* PageStore.swift */; };
-		318B794D2C8EBC5F001794A9 /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318B794C2C8EBC5F001794A9 /* Material.swift */; };
+		318B794D2C8EBC5F001794A9 /* MaterialUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318B794C2C8EBC5F001794A9 /* MaterialUi.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -320,9 +327,15 @@
 		31827E252C7D8C7A001112DA /* NodeTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTransform.swift; sourceTree = "<group>"; };
 		31831E722C7BF2D900D9C568 /* SCNNode_Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNNode_Extention.swift; sourceTree = "<group>"; };
 		31831E762C7C6B3100D9C568 /* SceneWorldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneWorldModel.swift; sourceTree = "<group>"; };
+		3184DEC32CA227FD006690E2 /* MyMaterialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMaterialManager.swift; sourceTree = "<group>"; };
+		3184DEC62CA22D2C006690E2 /* MaterialData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialData.swift; sourceTree = "<group>"; };
+		3184DECA2CA2353A006690E2 /* PageCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCreate.swift; sourceTree = "<group>"; };
+		3184DECC2CA2355F006690E2 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
+		3184DECF2CA242EF006690E2 /* PageStore_Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStore_Data.swift; sourceTree = "<group>"; };
+		3184DED62CA27A97006690E2 /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
 		318A408A2C8528AB001BA2B7 /* MyFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFileManager.swift; sourceTree = "<group>"; };
 		318B79492C8EBB89001794A9 /* PageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStore.swift; sourceTree = "<group>"; };
-		318B794C2C8EBC5F001794A9 /* Material.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Material.swift; sourceTree = "<group>"; };
+		318B794C2C8EBC5F001794A9 /* MaterialUi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialUi.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +346,7 @@
 				3181A2CC2C632EEC00312CCF /* Kingfisher in Frameworks */,
 				3181A2CF2C632F0D00312CCF /* Reachability in Frameworks */,
 				3181A2C72C632DEE00312CCF /* FirebaseAppCheck in Frameworks */,
+				3184DED42CA26D0F006690E2 /* AlertToast in Frameworks */,
 				3181A2C12C632DEE00312CCF /* FirebaseAnalytics in Frameworks */,
 				3181A2C92C632DEE00312CCF /* FirebaseAppDistribution-Beta in Frameworks */,
 				3181A2C52C632DEE00312CCF /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
@@ -369,10 +383,11 @@
 		317CE1442C64419F00CEAD74 /* page */ = {
 			isa = PBXGroup;
 			children = (
+				3184DED52CA27A78006690E2 /* component */,
+				3184DED12CA2596C006690E2 /* model */,
+				3184DEC92CA23521006690E2 /* create */,
+				3184DEC82CA23509006690E2 /* store */,
 				317CE13C2C64419F00CEAD74 /* PageFactory.swift */,
-				318B79492C8EBB89001794A9 /* PageStore.swift */,
-				316C044C2C901A6300B79400 /* PageStoreItem.swift */,
-				316C04502C90293200B79400 /* PageStoreFoundation.swift */,
 				317CE13D2C64419F00CEAD74 /* PageHome.swift */,
 			);
 			path = page;
@@ -475,8 +490,8 @@
 			isa = PBXGroup;
 			children = (
 				317CE18A2C649F9500CEAD74 /* GoogleService-Info.plist */,
-				3181A26D2C632D1300312CCF /* skeleton */,
 				3181A1E72C632C8B00312CCF /* lib */,
+				3181A26D2C632D1300312CCF /* skeleton */,
 				317CE1462C64419F00CEAD74 /* screen */,
 				317CE1592C64419F00CEAD74 /* store */,
 				317FF5F22BFAEB560012E929 /* DesignItYourselfApp.swift */,
@@ -909,10 +924,64 @@
 			path = util;
 			sourceTree = "<group>";
 		};
+		3184DEC52CA22D11006690E2 /* material */ = {
+			isa = PBXGroup;
+			children = (
+				3184DEC62CA22D2C006690E2 /* MaterialData.swift */,
+				318B794C2C8EBC5F001794A9 /* MaterialUi.swift */,
+				316C044E2C901CD400B79400 /* MaterialFoundation.swift */,
+			);
+			path = material;
+			sourceTree = "<group>";
+		};
+		3184DEC82CA23509006690E2 /* store */ = {
+			isa = PBXGroup;
+			children = (
+				3184DECE2CA242C1006690E2 /* model */,
+				318B79492C8EBB89001794A9 /* PageStore.swift */,
+				316C044C2C901A6300B79400 /* PageStoreItem.swift */,
+				316C04502C90293200B79400 /* PageStoreFoundation.swift */,
+			);
+			path = store;
+			sourceTree = "<group>";
+		};
+		3184DEC92CA23521006690E2 /* create */ = {
+			isa = PBXGroup;
+			children = (
+				3184DECA2CA2353A006690E2 /* PageCreate.swift */,
+			);
+			path = create;
+			sourceTree = "<group>";
+		};
+		3184DECE2CA242C1006690E2 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				3184DECF2CA242EF006690E2 /* PageStore_Data.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		3184DED12CA2596C006690E2 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				3184DECC2CA2355F006690E2 /* StoreModel.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		3184DED52CA27A78006690E2 /* component */ = {
+			isa = PBXGroup;
+			children = (
+				3184DED62CA27A97006690E2 /* Cart.swift */,
+			);
+			path = component;
+			sourceTree = "<group>";
+		};
 		318A40892C8527E5001BA2B7 /* manager */ = {
 			isa = PBXGroup;
 			children = (
 				318A408A2C8528AB001BA2B7 /* MyFileManager.swift */,
+				3184DEC32CA227FD006690E2 /* MyMaterialManager.swift */,
 			);
 			path = manager;
 			sourceTree = "<group>";
@@ -920,8 +989,7 @@
 		318B794B2C8EBC1E001794A9 /* component */ = {
 			isa = PBXGroup;
 			children = (
-				318B794C2C8EBC5F001794A9 /* Material.swift */,
-				316C044E2C901CD400B79400 /* MaterialFoundation.swift */,
+				3184DEC52CA22D11006690E2 /* material */,
 			);
 			path = component;
 			sourceTree = "<group>";
@@ -951,6 +1019,7 @@
 				3181A2CB2C632EEC00312CCF /* Kingfisher */,
 				3181A2CE2C632F0D00312CCF /* Reachability */,
 				3181A2D12C632F3B00312CCF /* Lottie */,
+				3184DED32CA26D0F006690E2 /* AlertToast */,
 			);
 			productName = DesignItYourself;
 			productReference = 317FF5EF2BFAEB560012E929 /* DesignItYourself.app */;
@@ -1029,6 +1098,7 @@
 				3181A2BF2C632DEE00312CCF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3181A2CD2C632F0D00312CCF /* XCRemoteSwiftPackageReference "Reachability" */,
 				3181A2D02C632F3B00312CCF /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				3184DED22CA26D0F006690E2 /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 317FF5F02BFAEB560012E929 /* Products */;
 			projectDirPath = "";
@@ -1089,6 +1159,7 @@
 				317CE1752C64419F00CEAD74 /* PageHome.swift in Sources */,
 				3181A2902C632D1300312CCF /* PlayerScreenView.swift in Sources */,
 				3181A29F2C632D1300312CCF /* Line.swift in Sources */,
+				3184DEC42CA227FD006690E2 /* MyMaterialManager.swift in Sources */,
 				3181A1FC2C632C8B00312CCF /* CodableExtensions.swift in Sources */,
 				3181A1F72C632C8B00312CCF /* NetworkObserver.swift in Sources */,
 				3181A2742C632D1300312CCF /* RadioButton.swift in Sources */,
@@ -1111,10 +1182,11 @@
 				317CE1852C64419F00CEAD74 /* LocalStorage.swift in Sources */,
 				3181A2ED2C63377500312CCF /* ScrollLazeStack.swift in Sources */,
 				3181A2032C632C8B00312CCF /* UnitUtil.swift in Sources */,
-				318B794D2C8EBC5F001794A9 /* Material.swift in Sources */,
+				318B794D2C8EBC5F001794A9 /* MaterialUi.swift in Sources */,
 				317FF5F82BFAEB560012E929 /* DesignItYourself.xcdatamodeld in Sources */,
 				3181A2722C632D1300312CCF /* FillButton.swift in Sources */,
 				3181A2752C632D1300312CCF /* RectButton.swift in Sources */,
+				3184DECB2CA2353A006690E2 /* PageCreate.swift in Sources */,
 				3181A2BB2C632D1300312CCF /* dimen.swift in Sources */,
 				3181A2802C632D1300312CCF /* CPCircularNavigation.swift in Sources */,
 				3181A2892C632D1300312CCF /* CustomVTTPlayer.swift in Sources */,
@@ -1144,6 +1216,7 @@
 				3181A2A02C632D1300312CCF /* RoundedCorner.swift in Sources */,
 				3181A2AF2C632D1300312CCF /* FaceBookManager.swift in Sources */,
 				3181A2BA2C632D1300312CCF /* colors.swift in Sources */,
+				3184DED02CA242EF006690E2 /* PageStore_Data.swift in Sources */,
 				3181A2782C632D1300312CCF /* Switch.swift in Sources */,
 				3179B0A32C76C4AA006CB96A /* CoordinateGrid.swift in Sources */,
 				317CE1812C64419F00CEAD74 /* ApiConst.swift in Sources */,
@@ -1181,6 +1254,7 @@
 				3181A1EC2C632C8B00312CCF /* SoundToolBox.swift in Sources */,
 				3181A28F2C632D1300312CCF /* CustomAVPlayerController.swift in Sources */,
 				3181A2A32C632D1300312CCF /* LoopSwipperView.swift in Sources */,
+				3184DED72CA27A97006690E2 /* Cart.swift in Sources */,
 				317CE17F2C64419F00CEAD74 /* UserApi.swift in Sources */,
 				3181A2762C632D1300312CCF /* SelectButton.swift in Sources */,
 				3181A2AD2C632D1300312CCF /* KeychainItem.swift in Sources */,
@@ -1193,9 +1267,11 @@
 				3181A1F62C632C8B00312CCF /* LocationObserver.swift in Sources */,
 				3181A2B92C632D1300312CCF /* asset.swift in Sources */,
 				3181A2822C632D1300312CCF /* CPTabNavigation.swift in Sources */,
+				3184DECD2CA2355F006690E2 /* StoreModel.swift in Sources */,
 				3181A2832C632D1300312CCF /* Navigation.swift in Sources */,
 				3181A2EE2C63377500312CCF /* ScrollList.swift in Sources */,
 				3181A1FF2C632C8B00312CCF /* Log.swift in Sources */,
+				3184DEC72CA22D2C006690E2 /* MaterialData.swift in Sources */,
 				3181A1ED2C632C8B00312CCF /* IndexMap.swift in Sources */,
 				3181A27B2C632D1300312CCF /* ImageView.swift in Sources */,
 				31827E262C7D8C7A001112DA /* NodeTransform.swift in Sources */,
@@ -1603,6 +1679,14 @@
 				minimumVersion = 4.5.0;
 			};
 		};
+		3184DED22CA26D0F006690E2 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.9;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1645,6 +1729,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3181A2D02C632F3B00312CCF /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		3184DED32CA26D0F006690E2 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3184DED22CA26D0F006690E2 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
 		};
 /* End XCSwiftPackageProductDependency section */
 

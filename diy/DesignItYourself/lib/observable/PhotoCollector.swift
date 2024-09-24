@@ -171,8 +171,8 @@ class PhotoCollector : ObservableObject , PageProtocol{
     func alertToEncouragePhotoLibraryAccess()
     {
         let cameraUnavailableAlertController = UIAlertController (
-            title: String.alert.requestAccessPhoto,
-            message: String.alert.requestAccessPhotoText,
+            title: "String.alert.requestAccessPhoto",
+            message: "String.alert.requestAccessPhotoText",
             preferredStyle: .alert)
 
         let settingsAction = UIAlertAction(title: String.app.setting, style: .destructive) { (_) -> Void in

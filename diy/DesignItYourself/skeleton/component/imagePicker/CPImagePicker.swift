@@ -35,12 +35,12 @@ struct CPImagePicker : PageView {
                 }
                 ZStack{
                     if self.isModal {
-                        TextButton(defaultText: String.alert.requestAccessCameraText){ _ in
+                        TextButton(defaultText: "String.alert.requestAccessCameraText"){ _ in
                             AppUtil.goAppSettings()
                         }
                         
                     } else {
-                        TextButton(defaultText: String.alert.requestAccessCamera){ _ in
+                        TextButton(defaultText: "String.alert.requestAccessCamera"){ _ in
                             self.alertToEncourageCameraAccess()
                         }
                     }
@@ -70,8 +70,8 @@ struct CPImagePicker : PageView {
     func alertToEncourageCameraAccess()
     {
         let cameraUnavailableAlertController = UIAlertController (
-            title: String.alert.requestAccessCamera,
-            message: String.alert.requestAccessCameraText,
+            title: "String.alert.requestAccessCamera",
+            message: "String.alert.requestAccessCameraText",
             preferredStyle: .alert)
 
         let settingsAction = UIAlertAction(title: String.app.setting, style: .destructive) { (_) -> Void in

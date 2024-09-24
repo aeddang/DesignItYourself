@@ -21,7 +21,7 @@ struct ImageButton: PageView{
     
     var isSelected: Bool = false
     var index: Int = -1
-    var defaultImage:String = Asset.component.button.search
+    var defaultImage:String = Asset.component.button.close
     var activeImage:String? = nil
     var type:Image.TemplateRenderingMode = .template
     var sizeType:SizeType = .L
@@ -175,7 +175,9 @@ struct ImageButton_Previews: PreviewProvider {
             .frame( alignment: .center)
             
             ImageButton(
-                isSelected: false
+                isSelected: false, 
+                defaultImage: Asset.component.button.close,
+                sizeType: .S
             ){_ in
                 
             }

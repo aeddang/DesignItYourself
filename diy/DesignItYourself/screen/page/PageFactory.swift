@@ -53,7 +53,7 @@ struct PageProvider {
         )
         return pobj
     }
-    static func isHome(_ pageID:PageID)-> Bool{
+    private static func isHome(_ pageID:PageID)-> Bool{
         switch pageID {
         case .home : return  true
         default : return  false

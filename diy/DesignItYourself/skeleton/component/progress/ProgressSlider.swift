@@ -12,10 +12,12 @@ struct ProgressSection:Identifiable{
     var id:String = UUID().uuidString
     let pct:CGFloat
     var color:Color = Color.transparent.clearUi
+    var onAction: ((CGFloat) -> Void)? = nil
 }
 
 struct ProgressSlider: PageView {
     var progress: Float // or some value binded
+    var progressPoints:[ProgressSection]? = nil
     var progressSections:[ProgressSection]? = nil
     var useGesture:Bool = true
     var progressHeight:CGFloat = Dimen.bar.light
@@ -29,6 +31,7 @@ struct ProgressSlider: PageView {
     var thumbImageDuration:Double = 0
     var thumbImagePath:String? = nil
     var thumbImageSize:CGSize = .init(width: 160, height: 90)
+    
     
     var onChange: ((Float) -> Void)? = nil
     var onChanged: ((Float) -> Void)? = nil
@@ -91,12 +94,28 @@ struct ProgressSlider: PageView {
                             .offset( x: self.getThumbPosition(geometry:geometry))
                             .frame(width: 0, height: 0)
                     }
+                    if let points = self.progressPoints {
+                        ForEach(points) { point in
+                            ZStack{
+                                Circle()
+                                    .foregroundColor(point.color)
+                                    .frame(width: self.progressHeight, height: self.progressHeight)
+                            }
+                            .frame(width: 50, height: 50)
+                            .background(Color.transparent.clearUi)
+                            .padding(.leading, (geometry.size.width*point.pct) - 25)
+                            .onTapGesture {
+                                point.onAction?(point.pct)
+                            }
+                        }
+                        
+                    }
                 }
                 .frame(height: progressHeight)
             }
             .modifier(MatchParent())
             .background(Color.transparent.clearUi)
-            .highPriorityGesture(DragGesture(minimumDistance: 20)
+            .highPriorityGesture(DragGesture(minimumDistance: 1)
                 .onChanged({ value in
                     if !useGesture { return }
                     self.isThumbDrag = true
@@ -121,13 +140,7 @@ struct ProgressSlider: PageView {
                     self.onProgressCompleted()
                 }))
         }
-        /*
-        .onAppCameToForeground {
-            if self.isThumbDrag {
-                onProgressCompleted()
-            }
-        }
-        */
+        
         .onAppWentToBackground {
             if self.isThumbDrag {
                 self.onProgressCompleted()

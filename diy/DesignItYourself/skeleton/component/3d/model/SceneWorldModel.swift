@@ -10,8 +10,6 @@ import SceneKit
 import SwiftUI
 class SceneWorldModel:ObservableObject, PageProtocol{
     private(set) static var shared: SceneWorldModel? = nil
-    //@Published var status:RepositoryStatus = .initate
-    //@Published var event:RepositoryEvent? = nil {didSet{ if event != nil { event = nil} }}
     @Published private(set) var objectNodeDatas:[String:UserData] = [:]
     @Published private(set) var nodeDatas:[String:UserData] = [:]
     @Published private(set) var selectedNodes:[SCNNode] = []
@@ -331,7 +329,7 @@ class SceneWorldModel:ObservableObject, PageProtocol{
             switch self {
             case .X : return "가로"
             case .Y : return "세로"
-            case .Z : return "높이"
+            case .Z : return "길이"
             }
         }
     }

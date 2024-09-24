@@ -18,13 +18,14 @@ enum SceneEvent {
 struct ScreenView: View, PageProtocol {
     @EnvironmentObject var keyboardObserver:KeyboardObserver
     @EnvironmentObject var pagePresenter:PagePresenter
-    @StateObject var appSceneObserver:AppSceneObserver = AppSceneObserver()
-    let deviceRotateHandler = DeviceRotateHandler()
+    @StateObject var appSceneObserver:AppSceneObserver = .init()
+    @StateObject var storeModel:StoreModel = .init()
+    let deviceRotateHandler:DeviceRotateHandler = .init()
     @State var stack = NavigationPath()
 
     var body: some View {
         GeometryReader { geometry in
-            ZStack{
+            ZStack(alignment: .bottom){
                 NavigationStack(path: self.$stack) {
                     ZStack{
                         if self.stack.isEmpty {
@@ -55,6 +56,7 @@ struct ScreenView: View, PageProtocol {
                                         }
                                     }
                             }
+                        
                     }
                     .modifier(MatchParent())
                     .background(self.bgColor)
@@ -67,14 +69,17 @@ struct ScreenView: View, PageProtocol {
                     }
                 }
                 .accentColor(self.contentColor)
+                Cart()
                 if self.isLock {
                     Spacer().modifier(MatchParent()).background(Color.transparent.black70)
                 }
+                
                 if self.isLoading {
                     CircularSpinner()
                 }
             }
             .environmentObject(self.appSceneObserver)
+            .environmentObject(self.storeModel)
             .onReceive(self.pagePresenter.$request){ request in
                 guard let request = request else {return}
                 switch request {
@@ -131,6 +136,7 @@ struct ScreenView: View, PageProtocol {
             }
             .onAppear(){
                 self.updatedPageColorMode()
+                self.pagePresenter.screenOrientation = UIDevice.current.orientation
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                     let addPage = PageProvider.getPageObject(.store)
                     self.pagePresenter.request = .movePage(addPage)
@@ -161,6 +167,7 @@ struct ScreenView: View, PageProtocol {
         if AppDelegate.orientationLock != orientationMask {
             self.deviceRotateHandler.requestOrientationMask(orientationMask)
         }
+        self.storeModel.onPageChanged(page)
         
     }
     

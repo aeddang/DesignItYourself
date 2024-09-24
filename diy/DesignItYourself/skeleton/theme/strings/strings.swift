@@ -14,15 +14,22 @@ extension String {
         return NSLocalizedString(self, comment: "")
     }
     struct app {
-        public static let appName = "Globe"
+        public static let appName = "DiY"
         public static let confirm = "Confirm"
         public static let cancel = "Cancel"
+        public static let yes = "Yes"
+        public static let no = "No"
         public static let delete = "Delete"
         public static let modify = "Modify"
         public static let share = "Share"
         public static let setting = "Setting"
         public static let complete = "Complete"
         
+        public static let pick = "Pick"
+        public static let all = "All"
+        public static let one = "One"
+        
+        //
         public static let update = "Update"
         public static let save = "Save"
         public static let saveAs = "Save as"
@@ -64,47 +71,16 @@ extension String {
         public static var networkError = "We've lost your connection."
         public static var dataError = "No data."
         
-        public static var requestAccessPhoto = "I need your photo."
-        public static var requestAccessCamera = "I need your camera."
-        public static var requestAccessPhotoText = "Take photos and mark them on the map."
-        public static var requestAccessCameraText = "Take a photo and mark it on the map."
         
-        public static var requestAccessLocation = "I need your location."
-        public static var requestAccessLocationText = "To identify and display location information in photos."
+        public static var existMaterial = "already exists."
+        public static var includeSelectedMaterial = "Do you want to include current material?"
+        public static var deleteMaterial = "All information in that category will be deleted.\nDo you want to continue?"
         
-        public static var inputLocation = "Please enter location information."
-        public static var createGlobeStart = "Bring photos taken during your trip and record your travel itinerary."
-        
-        public static var limitedImageUpload = "You can only upload a maximum of %s images at a time."
-        public static var limitedImageUploadSelect = "You can only select up to %s images."
-        public static var unsavedExit = "Any unsaved information will be lost."
-        public static var noInformationChanged = "No information has changed."
-        public static var noPhotoSelected = "No photos selected."
-        
-        public static var existCategory = "The category you are trying to change already exists. Do you want to merge?"
-        public static var deleteCategory = "All information in that category will be deleted.\nDo you want to continue?"
-        
-        public static let setupCategoryCompleted = "Would you like to go to that category?"
     }
     
     struct page {
 
         public static let additionalPhoto = "Additional photos"
-        public static let needMoreInformation = "Need more information"
-        
-        public static let uploadSns = "Upload your travel picture to SNS."
-        public static let shareRoute = "Share your travel route by GoogleMap."
-        public static let globeRouteEmpty = "Bring photos to complete your itinerary."
-        
-        public static let globeCaptureEmpty = "Take a photo to remember your current location."
-        public static let createRouteByCapture = "You can create a route by selecting a location."
-        public static let setCategorySelectCapture = "Please import the captured location to add it to the category."
-        public static let titleEmpty = "Enter the subject"
-        
-        public static let setupCategory = "Manage your location by setting categories."
-        public static let setupCategoryInfo = "When you set a category, It is saved in the corresponding category in my location."
-        
-        public static let rateThePlace = "Please rate the place."
     }
     
     

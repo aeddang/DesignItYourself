@@ -6,7 +6,7 @@ import UIKit
 struct NodeScreen : View{
     @EnvironmentObject var viewModel:SceneWorldModel
     
-    let type:SceneWorldModel.NodeType
+    var type:SceneWorldModel.NodeType
     var userData:SceneWorldModel.UserData? = nil
     let delegate = SceneRendererDelegate()
     var selected: (() -> Void)? = nil
@@ -22,7 +22,6 @@ struct NodeScreen : View{
             delegate: self.delegate
         )
         .modifier(MatchParent())
-        .background(Color.black)
         .onTapGesture { location in
             if let result = self.delegate.renderer?.hitTest(
                 .init(x: location.x, y: location.y)) {
@@ -31,12 +30,15 @@ struct NodeScreen : View{
                 }
             }
         }
+        .onChange(of: self.type){ 
+            self.update()
+        }
         .onAppear(){
             let directionalLightNode: SCNNode = {
                 let n = SCNNode()
                 n.light = SCNLight()
-                n.light!.type = SCNLight.LightType.directional
-                n.light!.color = UIColor(white: 0.75, alpha: 0.5)
+                n.light!.type = SCNLight.LightType.ambient
+                n.light!.color = UIColor(white: 0.75, alpha: 0.1)
                 return n
             }()
 
@@ -46,37 +48,42 @@ struct NodeScreen : View{
                 axis: simd_float3(1,0,0)
             )
             scene.rootNode.addChildNode(directionalLightNode)
-    
-            let cameraNode = SCNNode()
             cameraNode.camera = SCNCamera()
-            
             scene.rootNode.addChildNode(cameraNode)
-            let item:SCNNode = self.userData == nil
-            ? self.viewModel.createNode(type: self.type)
-            : self.viewModel.createNode(userData: self.userData!)
             
-            item.setOrientationZ(15)
-            self.item = item
-            scene.rootNode.addChildNode(item)
-            
-            if let radius = item.geometry?.boundingSphere.radius {
-                cameraNode.simdPosition = simd_float3(0,0,max(5,min(20,radius*2)))
-                
-            } else {
-                var maxRadius:Float = 0
-                item.childNodes.forEach{
-                    let radius:Float = $0.geometry?.boundingSphere.radius ?? 0
-                    maxRadius = max(radius, maxRadius)
-                }
-                cameraNode.simdPosition = simd_float3(0,0,maxRadius*4)
-            }
-            
-           
+            self.update()
         }
+        
     }
    
     @State var scene:SCNScene = SCNScene()
+    @State var cameraNode:SCNNode = SCNNode()
     @State var item:SCNNode? = nil
+    
+    private func update(){
+        self.item?.removeFromParentNode()
+        
+        let item:SCNNode = self.userData == nil
+        ? self.viewModel.createNode(type: self.type)
+        : self.viewModel.createNode(userData: self.userData!)
+        
+        item.setOrientationY(90).moveRotation(45, x: 1).moveRotation(45, z: 1)
+        self.item = item
+        scene.rootNode.addChildNode(item)
+        
+        if let radius = item.geometry?.boundingSphere.radius {
+            cameraNode.simdPosition = simd_float3(0,0,max(5,min(20,radius*2)))
+            
+        } else {
+            var maxRadius:Float = 0
+            item.childNodes.forEach{
+                let radius:Float = $0.geometry?.boundingSphere.radius ?? 0
+                maxRadius = max(radius, maxRadius)
+            }
+            cameraNode.simdPosition = simd_float3(0,0,maxRadius*4)
+        }
+    }
+    
     class SceneRendererDelegate: NSObject, SCNSceneRendererDelegate {
         var renderer: SCNSceneRenderer?
         var onEachFrame: (() -> ())? = nil
