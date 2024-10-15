@@ -47,7 +47,6 @@ struct Cart: PageView {
             }
             .modifier(MatchHorizontal(height: 60))
         }
-       
         .opacity(self.status == .hidden ? 0 : 1)
         .onReceive(self.storeModel.$materials) { materials in
             self.datas = materials
@@ -58,7 +57,7 @@ struct Cart: PageView {
             }
         }
         .onAppear(){
-            self.storeModel.setup(hasMaterials: [])
+            
         }
     }
     @State private var datas:[MaterialData] = []
@@ -79,7 +78,7 @@ struct Cart: PageView {
                         .modifier(LightTextStyle(color: Color.app.white))
                         .modifier(MatchParent())
                 }
-                .frame(width: 60, height: 60)
+                .frame(width: Dimen.icon.heavy, height: Dimen.icon.heavy)
                 .padding(.top, 6)
                 .padding(.trailing, 6)
                 ImageButton(

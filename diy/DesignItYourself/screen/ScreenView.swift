@@ -136,9 +136,10 @@ struct ScreenView: View, PageProtocol {
             }
             .onAppear(){
                 self.updatedPageColorMode()
-                self.pagePresenter.screenOrientation = UIDevice.current.orientation
+                let orientation = UIDevice.current.orientation
+                self.pagePresenter.screenOrientation = orientation
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                    let addPage = PageProvider.getPageObject(.store)
+                    let addPage = PageProvider.getPageObject(.create)
                     self.pagePresenter.request = .movePage(addPage)
                 }
             }
@@ -163,11 +164,12 @@ struct ScreenView: View, PageProtocol {
         self.pagePresenter.screenSize = geometry.size
         let orientationMask = PageFactory.getPageOrientationMask(page)
         self.deviceRotateHandler.updateOrientationMask(orientationMask)
+        self.storeModel.onPageChanged(page)
         if orientationMask == .all {return}
         if AppDelegate.orientationLock != orientationMask {
             self.deviceRotateHandler.requestOrientationMask(orientationMask)
         }
-        self.storeModel.onPageChanged(page)
+        
         
     }
     

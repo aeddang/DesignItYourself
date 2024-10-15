@@ -8,6 +8,7 @@ import SwiftUI
 import Foundation
 extension PageID{
     static let home:PageID = "home"
+    static let create:PageID = "create"
     static let store:PageID = "store"
     static let storeItem:PageID = "storeItem"
     static let storeFoundation:PageID = "storeFoundation"
@@ -16,6 +17,7 @@ extension PageID{
 struct PageFactory{
     static func getPage(_ pageObject:PageObject) -> some View{
         switch pageObject.pageID {
+        case .create : return PageCreate().contentBody
         case .store : return PageStore().contentBody
         case .storeItem : return PageStoreItem().contentBody
         case .storeFoundation : return PageStoreFoundation().contentBody
@@ -55,7 +57,7 @@ struct PageProvider {
     }
     private static func isHome(_ pageID:PageID)-> Bool{
         switch pageID {
-        case .home : return  true
+        case .home, .create : return  true
         default : return  false
         }
     }

@@ -9,6 +9,15 @@ import Foundation
 import SceneKit
 import SwiftUI
 class SceneWorldModel:ObservableObject, PageProtocol{
+    static func defaultModel()->SceneWorldModel{
+        if let shared = Self.shared {
+            return shared
+        }
+        let model = SceneWorldModel()
+        Self.shared = model
+        return model
+    }
+    
     private(set) static var shared: SceneWorldModel? = nil
     @Published private(set) var objectNodeDatas:[String:UserData] = [:]
     @Published private(set) var nodeDatas:[String:UserData] = [:]
@@ -17,9 +26,6 @@ class SceneWorldModel:ObservableObject, PageProtocol{
     private let factory = SceneFactory()
     let scene = SCNScene()
     
-    init() {
-        Self.shared = self
-    }
     func createNode(type:NodeType)->SCNNode{
         let node = self.getNode(type: type)
         node.name = UUID().uuidString
@@ -91,11 +97,7 @@ class SceneWorldModel:ObservableObject, PageProtocol{
         if let data = userData {
             self.nodeDatas[key] = data
         }
-        /*
-        node.physicsBody = .dynamic()
-        node.physicsBody?.isAffectedByGravity = false
-        node.physicsBody?.friction = 0
-         */
+      
         self.scene.rootNode.addChildNode(node)
     }
     

@@ -22,7 +22,7 @@ class StoreModel:ObservableObject, PageProtocol{
     @Published private(set) var event:Event? = nil {didSet{ if event != nil { event = nil} }}
     @Published private(set) var status:Status = .hidden
     
-    private(set) var hasMaterials:[MaterialData] = []
+    @Published private(set) var hasMaterials:[MaterialData] = []
     @Published private(set) var materials:[MaterialData] = []
     
     func onPageChanged(_ page:PageObject){
@@ -32,7 +32,6 @@ class StoreModel:ObservableObject, PageProtocol{
         default :
             self.status = .hidden
         }
-        
     }
     
     func setup(hasMaterials:[MaterialData], isReset:Bool = true){
@@ -72,7 +71,9 @@ class StoreModel:ObservableObject, PageProtocol{
     }
     
     func complete(){
+        self.hasMaterials.append(contentsOf: self.materials)
         self.event = .selected(self.materials)
+        self.materials = []
     }
     
     func close(){

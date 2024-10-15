@@ -14,10 +14,8 @@ struct NodeStore : View{
     @EnvironmentObject var viewModel:SceneWorldModel
     var body: some View {
         HStack(){
-            NodeStoreItem(type: .box(x:3, skin: "preservativeWood"))
-            NodeStoreItem(type: .sphere(r:5, skin: "zinc"))
-            NodeStoreItem(type: .cylinder())
-            NodeStoreItem(type: .cone())
+            NodeStoreItem(type: .box(x:300, y:300, z:300, skin: "preservativeWood"))
+            
         }
         .modifier(MatchParent())
         ScrollView(.horizontal){

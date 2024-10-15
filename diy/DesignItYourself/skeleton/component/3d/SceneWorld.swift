@@ -72,15 +72,24 @@ struct SceneWorld : View{
                     
                     Text("VX")
                         .onTapGesture {
-                            camera?.simdPosition = simd_float3(30,0,0)
+                            if let camera = self.camera {
+                                let move = SCNAction.move(to: .init(x: 30, y: 0, z: 0), duration: 1.0)
+                                camera.runAction(move)
+                            }
                         }
                     Text("VY")
                         .onTapGesture {
-                            camera?.simdPosition = simd_float3(0,30,0)
+                            if let camera = self.camera {
+                                let move = SCNAction.move(to: .init(x: 0, y:30, z: 0), duration: 1.0)
+                                camera.runAction(move)
+                            }
                         }
                     Text("VZ")
                         .onTapGesture {
-                            camera?.simdPosition = simd_float3(0,0,30)
+                            if let camera = self.camera {
+                                let move = SCNAction.move(to: .init(x: 0, y: 0, z: 30), duration: 1.0)
+                                camera.runAction(move)
+                            }
                         }
                 }
                 HStack(){
@@ -120,11 +129,10 @@ struct SceneWorld : View{
             let cameraNode = SCNNode()
             let camera = SCNCamera()
             cameraNode.camera = camera
-            cameraNode.simdPosition = simd_float3(0,0,30)
+            cameraNode.simdPosition = simd_float3(0,0,10)
             scene.rootNode.addChildNode(cameraNode)
             scene.rootNode.addChildNode(CoordinateGrid())
-            //scene.physicsWorld.gravity = 
-            
+         
             self.camera = cameraNode
             self.scene = scene
         }

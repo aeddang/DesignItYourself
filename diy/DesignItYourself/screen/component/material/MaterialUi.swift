@@ -9,7 +9,7 @@ import SwiftUI
 import Foundation
 import UIKit
 
-struct MaterialGrid: PageView {
+struct MaterialItemGrid: PageView {
     @EnvironmentObject var pagePresenter:PagePresenter
     var datas:[MaterialItemData]
     var selected: ((_ data:MaterialItemData) -> Void)
@@ -115,6 +115,8 @@ struct MaterialItem: PageView {
  
     }
 }
+
+
 
 struct Material: PageView {
     let data:MaterialData

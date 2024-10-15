@@ -12,12 +12,6 @@ extension MyMaterialManager {
     }
 }
 
-
 class MyMaterialManager:ObservableObject, PageProtocol{
-    
     @Published var event:Event? = nil {didSet{ if event != nil { event = nil} }}
-    
-    
-    
-    
 }

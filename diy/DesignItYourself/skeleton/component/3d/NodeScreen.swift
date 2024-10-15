@@ -9,7 +9,7 @@ struct NodeScreen : View{
     var type:SceneWorldModel.NodeType
     var userData:SceneWorldModel.UserData? = nil
     let delegate = SceneRendererDelegate()
-    var selected: (() -> Void)? = nil
+    var selected: ((SCNNode) -> Void)? = nil
 
     var body: some View {
         SceneView(
@@ -26,7 +26,7 @@ struct NodeScreen : View{
             if let result = self.delegate.renderer?.hitTest(
                 .init(x: location.x, y: location.y)) {
                 if !result.isEmpty, let node = self.item{
-                    self.selected?()
+                    self.selected?(node)
                 }
             }
         }

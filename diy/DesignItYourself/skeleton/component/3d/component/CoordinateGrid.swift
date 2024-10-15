@@ -14,7 +14,7 @@ class CoordinateGrid: SCNNode {
         super.init(coder: aDecoder)
     }
     
-    init(length: Float = 40, radius: Float = 0.1,
+    init(length: Float = 4000, radius: Float = 10,
          color: (x: Color, y: Color, z: Color, origin: Color) = (
             SceneWorldModel.NodeAxis.X.color ,
             SceneWorldModel.NodeAxis.Y.color ,
@@ -58,8 +58,7 @@ class CoordinateGrid: SCNNode {
         
         if addPlane {
             let plane = factory.getPlane(w: length * 2, h: length * 2, lightingModel: .blinn)
-                .updateSkin(named: "grid", scale: length)
-          
+                .updateSkin(named: "grid", scale: pl * 2)
             plane.simdWorldOrientation = simd_quatf.init(angle: -.pi/2, axis: Axis.x.normal)
             self.addChildNode(plane)
         }

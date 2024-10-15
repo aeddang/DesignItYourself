@@ -6,10 +6,6 @@
 //
 import SwiftUI
 import Foundation
-import Photos
-import PhotosUI
-import MapKit
-import SwiftData
 
 struct PageHome: PageView {
     @EnvironmentObject var locationObserver:LocationObserver
@@ -22,8 +18,6 @@ struct PageHome: PageView {
     var body: some View {
         VStack{
             Text("3D")
-            NodeStore()
-                .modifier(MatchHorizontal(height: 120))
             SceneWorld()
                 .modifier(MatchHorizontal(height: 320))
             NodeTransform()

@@ -38,7 +38,7 @@ struct PageStore: PageView {
                 
                     ){
                         let datas = self.dataModel.getData(group)
-                        MaterialGrid(datas: datas){ select in
+                        MaterialItemGrid(datas: datas){ select in
                             let page:PageObject = PageProvider.getPageObject(.storeItem)
                                 .addParam(key: .data, value: select)
                             

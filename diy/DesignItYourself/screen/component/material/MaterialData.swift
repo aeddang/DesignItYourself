@@ -40,6 +40,9 @@ class MaterialData:InfinityData, ObservableObject {
     private(set) var foundationPointX:[Int] = []
     private(set) var foundationPointY:[Int] = []
     private(set) var foundationPointZ:[Int] = []
+    var isPossibleFoundation:Bool {
+        return foundationX != nil || foundationY != nil || foundationZ != nil
+    }
   
     private(set) var foundationType:SceneWorldModel.NodeType
     @Published private(set) var foundationCurrentX:Int? = nil
@@ -73,6 +76,8 @@ class MaterialData:InfinityData, ObservableObject {
         self.foundationPointZ = pointZ
         return self
     }
+    
+    
     
     // 변경 pct
     func foundation(x:Float? = nil, y:Float? = nil, z:Float? = nil) -> MaterialData {
