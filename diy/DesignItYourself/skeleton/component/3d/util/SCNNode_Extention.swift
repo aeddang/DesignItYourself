@@ -87,7 +87,7 @@ extension SCNNode{
     
     @discardableResult
     func moveX(_ amount:Float = 1) -> SCNNode {
-        self.simdWorldPosition += simd_float1(amount)/2 * Axis.x.normal
+        self.simdWorldPosition += simd_float1(amount*SceneFactory.planckLength) * Axis.x.normal
         let history = "MX," + amount.description
         + "," + Date().timeIntervalSince1970.description
         self.updateHistory(history)

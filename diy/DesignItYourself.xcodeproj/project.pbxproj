@@ -14,7 +14,6 @@
 		3179B0A32C76C4AA006CB96A /* CoordinateGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3179B0A22C76C4AA006CB96A /* CoordinateGrid.swift */; };
 		317C602C2CA5106900CA7A44 /* MyMaterials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317C602B2CA5106900CA7A44 /* MyMaterials.swift */; };
 		317C602F2CA519C100CA7A44 /* NodeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317C602E2CA519C100CA7A44 /* NodeScreen.swift */; };
-		317C60312CA52C3700CA7A44 /* NodeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317C60302CA52C3700CA7A44 /* NodeStore.swift */; };
 		317CE1742C64419F00CEAD74 /* PageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CE13C2C64419F00CEAD74 /* PageFactory.swift */; };
 		317CE1752C64419F00CEAD74 /* PageHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CE13D2C64419F00CEAD74 /* PageHome.swift */; };
 		317CE17C2C64419F00CEAD74 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CE1452C64419F00CEAD74 /* ScreenView.swift */; };
@@ -165,6 +164,7 @@
 		318A408B2C8528AB001BA2B7 /* MyFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318A408A2C8528AB001BA2B7 /* MyFileManager.swift */; };
 		318B794A2C8EBB89001794A9 /* PageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318B79492C8EBB89001794A9 /* PageStore.swift */; };
 		318B794D2C8EBC5F001794A9 /* MaterialUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318B794C2C8EBC5F001794A9 /* MaterialUi.swift */; };
+		319E89C22CC22E1000E2CA5C /* MyObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319E89C12CC22E1000E2CA5C /* MyObjects.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,7 +192,6 @@
 		3179B0A22C76C4AA006CB96A /* CoordinateGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateGrid.swift; sourceTree = "<group>"; };
 		317C602B2CA5106900CA7A44 /* MyMaterials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMaterials.swift; sourceTree = "<group>"; };
 		317C602E2CA519C100CA7A44 /* NodeScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeScreen.swift; sourceTree = "<group>"; };
-		317C60302CA52C3700CA7A44 /* NodeStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeStore.swift; sourceTree = "<group>"; };
 		317CE13C2C64419F00CEAD74 /* PageFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageFactory.swift; sourceTree = "<group>"; };
 		317CE13D2C64419F00CEAD74 /* PageHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageHome.swift; sourceTree = "<group>"; };
 		317CE1452C64419F00CEAD74 /* ScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
@@ -338,6 +337,7 @@
 		318A408A2C8528AB001BA2B7 /* MyFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFileManager.swift; sourceTree = "<group>"; };
 		318B79492C8EBB89001794A9 /* PageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStore.swift; sourceTree = "<group>"; };
 		318B794C2C8EBC5F001794A9 /* MaterialUi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialUi.swift; sourceTree = "<group>"; };
+		319E89C12CC22E1000E2CA5C /* MyObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyObjects.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -386,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				317C602B2CA5106900CA7A44 /* MyMaterials.swift */,
+				319E89C12CC22E1000E2CA5C /* MyObjects.swift */,
 			);
 			path = component;
 			sourceTree = "<group>";
@@ -469,7 +470,6 @@
 				3179B0A12C76C3E4006CB96A /* component */,
 				317CE18D2C64A1A300CEAD74 /* SceneWorld.swift */,
 				317C602E2CA519C100CA7A44 /* NodeScreen.swift */,
-				317C60302CA52C3700CA7A44 /* NodeStore.swift */,
 				31827E252C7D8C7A001112DA /* NodeTransform.swift */,
 			);
 			path = 3d;
@@ -1226,6 +1226,7 @@
 				3181A2A02C632D1300312CCF /* RoundedCorner.swift in Sources */,
 				3181A2AF2C632D1300312CCF /* FaceBookManager.swift in Sources */,
 				3181A2BA2C632D1300312CCF /* colors.swift in Sources */,
+				319E89C22CC22E1000E2CA5C /* MyObjects.swift in Sources */,
 				3184DED02CA242EF006690E2 /* PageStore_Data.swift in Sources */,
 				3181A2782C632D1300312CCF /* Switch.swift in Sources */,
 				3179B0A32C76C4AA006CB96A /* CoordinateGrid.swift in Sources */,
@@ -1295,7 +1296,6 @@
 				318A408B2C8528AB001BA2B7 /* MyFileManager.swift in Sources */,
 				3181A1E82C632C8B00312CCF /* DeviceRotateHandler.swift in Sources */,
 				31831E772C7C6B3100D9C568 /* SceneWorldModel.swift in Sources */,
-				317C60312CA52C3700CA7A44 /* NodeStore.swift in Sources */,
 				3181A2842C632D1300312CCF /* CustomAsset.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

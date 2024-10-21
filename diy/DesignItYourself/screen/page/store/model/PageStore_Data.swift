@@ -84,7 +84,7 @@ extension PageStore {
                                 .setup(title: "일반", text: "9*5.7*19", price: nil),
                             .init(type: .box(x: 80, y: 90, z: 230, skin: "brick_red"))
                                 .setup(title: "미니슈퍼", text: "9*2*36", price: nil),
-                            .init(type: .box(x: 80, y: 90, z: 230, skin: "brick_red"))
+                            .init(type: .box(x: 100, y: 100, z: 100, skin: "brick_red"))
                                 .setup(title: "슈퍼", text: "9*2*36", price: nil)
                         ]
                     ).setup(title: "적벽돌")

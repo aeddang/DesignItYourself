@@ -66,6 +66,11 @@ class SceneWorldModel:ObservableObject, PageProtocol{
         return node
     }
     
+    func removeObject(_ object:UserData) {
+        guard let name = object.type.name else {return}
+        self.objectNodeDatas[name] = nil
+    }
+    
     func getNodeData(_ node:SCNNode) -> UserData? {
         guard let key = node.name else {return nil}
         return self.getNodeData(name: key)
@@ -136,6 +141,21 @@ class SceneWorldModel:ObservableObject, PageProtocol{
         node.removeFromParentNode()
         self.removeNodeData(node)
     }
+    func removeNode(name:String){
+        let allNodes = self.getAllNodes()
+        if let node = allNodes.first(where: {$0.name == name}){
+            self.removeNode(node)
+        }
+    }
+    func removeNode(type:NodeType){
+        self.nodeDatas.keys.forEach{ key in
+            if let udata = self.nodeDatas[key] {
+                if udata.type == type {
+                    self.removeNode(name: key)
+                }
+            }
+        }
+    }
     
     func removeAllNode(exception:SCNNode? = nil){
         let allNodes = self.getAllNodes()
@@ -193,7 +213,10 @@ class SceneWorldModel:ObservableObject, PageProtocol{
                     }
                 }
             }
+        } else {
+            
         }
+        
         
         if self.selectedNodes.count == allNodes.count {
             self.selectedNodes = []
@@ -204,7 +227,7 @@ class SceneWorldModel:ObservableObject, PageProtocol{
         } else {
             allNodes.forEach{$0.opacity = 0.5}
             self.selectedNodes.forEach{$0.opacity = 1}
-            DataLog.d("selectedNodes. count" + self.selectedNodes.description)
+            DataLog.d("selectedNodes. count" + self.selectedNodes.count.description)
         }
     }
     func pickAllNode(){
@@ -373,6 +396,8 @@ class SceneWorldModel:ObservableObject, PageProtocol{
             //default : return nil
             }
         }
+        
+       
         
         public static func == (l:NodeType, r:NodeType)-> Bool {
             switch (l, r) {

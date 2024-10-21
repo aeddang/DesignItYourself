@@ -9,6 +9,7 @@ struct NodeScreen : View{
     var type:SceneWorldModel.NodeType
     var userData:SceneWorldModel.UserData? = nil
     let delegate = SceneRendererDelegate()
+    var onlyNodeSelect:Bool = true
     var selected: ((SCNNode) -> Void)? = nil
 
     var body: some View {
@@ -23,11 +24,16 @@ struct NodeScreen : View{
         )
         .modifier(MatchParent())
         .onTapGesture { location in
-            if let result = self.delegate.renderer?.hitTest(
-                .init(x: location.x, y: location.y)) {
-                if !result.isEmpty, let node = self.item{
-                    self.selected?(node)
+            if self.onlyNodeSelect {
+                
+                if let result = self.delegate.renderer?.hitTest(
+                    .init(x: location.x, y: location.y)) {
+                    if !result.isEmpty, let node = self.item{
+                        self.selected?(node)
+                    }
                 }
+            } else if let node = self.item{
+                self.selected?(node)
             }
         }
         .onChange(of: self.type){ 
@@ -72,7 +78,7 @@ struct NodeScreen : View{
         scene.rootNode.addChildNode(item)
         
         if let radius = item.geometry?.boundingSphere.radius {
-            cameraNode.simdPosition = simd_float3(0,0,max(5,min(20,radius*2)))
+            cameraNode.simdPosition = simd_float3(0,0,radius*2)
             
         } else {
             var maxRadius:Float = 0
@@ -80,7 +86,7 @@ struct NodeScreen : View{
                 let radius:Float = $0.geometry?.boundingSphere.radius ?? 0
                 maxRadius = max(radius, maxRadius)
             }
-            cameraNode.simdPosition = simd_float3(0,0,maxRadius*4)
+            cameraNode.simdPosition = simd_float3(0,0,maxRadius*2)
         }
     }
     

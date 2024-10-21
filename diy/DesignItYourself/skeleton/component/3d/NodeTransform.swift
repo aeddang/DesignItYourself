@@ -14,6 +14,7 @@ struct NodeTransform : View{
     @EnvironmentObject var viewModel:SceneWorldModel
     
     var body: some View {
+        
         VStack(){
             if self.isBreakGroup {
                 Text("BreakGroup")
@@ -46,11 +47,11 @@ struct NodeTransform : View{
                     }
                 Text("  <<| ").foregroundColor(.white).background(Color.blue)
                     .onTapGesture {
-                        self.transformNodes.forEach{$0.moveX(-1)}
+                        self.transformNodes.forEach{$0.moveX(-10)}
                     }
                 Text(" |>>  ").foregroundColor(.white).background(Color.blue)
                     .onTapGesture {
-                        self.transformNodes.forEach{$0.moveX(1)}
+                        self.transformNodes.forEach{$0.moveX(10)}
                     }
             }
             HStack(){

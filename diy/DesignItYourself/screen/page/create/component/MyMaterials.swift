@@ -8,43 +8,22 @@ struct MyMaterials : View{
     @EnvironmentObject var storeModel:StoreModel
     
     var body: some View {
-        VStack{
-            MyMaterialGrid(datas:  self.datas){ select in
-                let add = self.viewModel.createNode(type: select.type)
-                self.addNode(add, type: select.type)
-            }
-            ScrollView(.horizontal){
-                LazyHStack{
-                    ForEach(self.objects){obj in
-                        NodeScreen(type: obj.type, userData: obj){ node in
-                            let add = node.clone()
-                            self.addNode(add, type: obj.type)
-                        }
-                        .modifier(MatchVertical(width: 80))
-                    }
-                }
-            }
-            .frame(height: 80)
+        MyMaterialGrid(datas:  self.datas){ select in
+            let add = self.viewModel.createNode(type: select.type)
+            self.addNode(add, type: select.type)
         }
-        .modifier(MatchParent())
         .onReceive(self.storeModel.$hasMaterials) { materials in
             self.datas = materials
         }
-        .onReceive(self.viewModel.$objectNodeDatas) { nodes in
-            self.objects = nodes.compactMap{$0.value}
-        }
     }
-    @State private var datas:[MaterialData] = []
-    @State private var objects:[SceneWorldModel.UserData] = []
     
+    @State private var datas:[MaterialData] = []
     private func addNode(_ node:SCNNode, type:SceneWorldModel.NodeType){
-        let tx = Int.random(in: 15..<30)
-        let ty = Int.random(in: 15..<30)
         self.viewModel.addNode(
             node, type: type,
             objectName: type.name
         )
-        node.moveX(Float(-tx)).moveY(Float(ty)).normalY()
+        node.normalY()
         self.viewModel.removeAllPickNode(exception: node)
     }
 }

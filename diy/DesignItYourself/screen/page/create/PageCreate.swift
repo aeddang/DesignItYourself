@@ -19,6 +19,7 @@ struct PageCreate: PageView {
     var body: some View {
         VStack{
             MyMaterials()
+            MyObjects()
             SceneWorld()
                 .modifier(MatchHorizontal(height: 320))
             NodeTransform()

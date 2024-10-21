@@ -34,7 +34,9 @@ struct SceneWorld : View{
                             if !self.isMultiSelect {
                                 self.viewModel.removeAllPickNode()
                             }
-                            self.viewModel.pickNode(node)
+                            do {
+                                self.viewModel.pickNode(node)
+                            }
                         }
                     }
                 }
@@ -55,8 +57,6 @@ struct SceneWorld : View{
                             default:break
                         }
                     })
-                
-                
             }
             VStack{
                 HStack(){
@@ -72,24 +72,16 @@ struct SceneWorld : View{
                     
                     Text("VX")
                         .onTapGesture {
-                            if let camera = self.camera {
-                                let move = SCNAction.move(to: .init(x: 30, y: 0, z: 0), duration: 1.0)
-                                camera.runAction(move)
-                            }
+                            self.scene?.rootNode.camera?.fieldOfView = .greatestFiniteMagnitude
+                            
                         }
                     Text("VY")
                         .onTapGesture {
-                            if let camera = self.camera {
-                                let move = SCNAction.move(to: .init(x: 0, y:30, z: 0), duration: 1.0)
-                                camera.runAction(move)
-                            }
+                            self.resetCamera(pos: simd_float3(0,30,0))
                         }
                     Text("VZ")
                         .onTapGesture {
-                            if let camera = self.camera {
-                                let move = SCNAction.move(to: .init(x: 0, y: 0, z: 30), duration: 1.0)
-                                camera.runAction(move)
-                            }
+                            self.resetCamera(pos: simd_float3(0,0,30))
                         }
                 }
                 HStack(){
@@ -110,6 +102,7 @@ struct SceneWorld : View{
         }
         .modifier(MatchParent())
         .onAppear(){
+            if self.scene != nil {return}
             let scene = self.viewModel.scene
             let directionalLightNode: SCNNode = {
                 let n = SCNNode()
@@ -125,16 +118,9 @@ struct SceneWorld : View{
                 axis: simd_float3(1,0,0)
             ) 
             scene.rootNode.addChildNode(directionalLightNode)
-    
-            let cameraNode = SCNNode()
-            let camera = SCNCamera()
-            cameraNode.camera = camera
-            cameraNode.simdPosition = simd_float3(0,0,10)
-            scene.rootNode.addChildNode(cameraNode)
             scene.rootNode.addChildNode(CoordinateGrid())
-         
-            self.camera = cameraNode
             self.scene = scene
+            self.resetCamera(pos: simd_float3(0,0,10))
         }
         .onDisappear{
             
@@ -145,6 +131,18 @@ struct SceneWorld : View{
     @State var camera:SCNNode? = nil
     @State var isMultiSelect:Bool = false
     @State var scName:String? = nil
+    
+    private func resetCamera(pos:simd_float3){
+        self.camera?.removeFromParentNode()
+        let cameraNode = SCNNode()
+        let camera = SCNCamera()
+        cameraNode.camera = camera
+        cameraNode.simdPosition = pos
+        self.camera = cameraNode
+        self.scene?.rootNode.addChildNode(cameraNode)
+    }
+    
+    
     let delegate = SceneRendererDelegate()
     class SceneRendererDelegate: NSObject, SCNSceneRendererDelegate {
         var renderer: SCNSceneRenderer?
