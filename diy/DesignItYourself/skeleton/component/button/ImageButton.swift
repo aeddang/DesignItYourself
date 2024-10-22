@@ -28,6 +28,7 @@ struct ImageButton: PageView{
     var size:CGSize? = nil //CGSize(width: Dimen.icon.light, height: Dimen.icon.light)
     var iconText:String? = nil
     var iconImage:String? = nil
+    var iconDegrees:Double = 0
     var text:String? = nil
     
     var defaultColor:Color = Color.brand.content
@@ -53,6 +54,7 @@ struct ImageButton: PageView{
                     size: size ?? .init(width: sizeType.size, height: sizeType.size),
                     iconText:iconText,
                     iconImage: iconImage,
+                    iconDegrees: iconDegrees,
                     text:text,
                     defaultColor: defaultColor,
                     activeColor: activeColor,
@@ -68,6 +70,7 @@ struct ImageButton: PageView{
                 size: size ?? .init(width: sizeType.size, height: sizeType.size),
                 iconText:iconText,
                 iconImage: iconImage,
+                iconDegrees: iconDegrees,
                 text:text,
                 defaultColor: defaultColor,
                 activeColor: activeColor,
@@ -83,6 +86,7 @@ struct ImageButton: PageView{
         var size:CGSize
         var iconText:String?
         var iconImage:String?
+        var iconDegrees:Double
         var text:String?
         
         var defaultColor:Color
@@ -98,6 +102,7 @@ struct ImageButton: PageView{
                     .renderingMode(self.type)
                     .resizable()
                     .scaledToFit()
+                    .rotationEffect(.degrees(self.iconDegrees))
                     .foregroundColor(self.isSelected ?  self.activeColor : self.defaultColor)
                     .frame(width: size.width, height: size.height)
                     

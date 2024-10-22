@@ -26,6 +26,10 @@ class PersistenceController:PageProtocol{
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
     
+    func getEmptyData()->EntitySaveData{
+        return EntitySaveData(context: viewContext)
+    }
+    
     func getSaveDatas( page:Int? = 0, count:Int = 12)->[EntitySaveData]{
         do {
             let request:NSFetchRequest<EntitySaveData> = .init(entityName: "EntitySaveData")

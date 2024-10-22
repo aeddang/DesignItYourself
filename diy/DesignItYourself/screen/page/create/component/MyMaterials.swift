@@ -6,18 +6,41 @@ import UIKit
 struct MyMaterials : View{
     @EnvironmentObject var viewModel:SceneWorldModel
     @EnvironmentObject var storeModel:StoreModel
+    @EnvironmentObject var pagePresenter:PagePresenter
     
     var body: some View {
-        MyMaterialGrid(datas:  self.datas){ select in
-            let add = self.viewModel.createNode(type: select.type)
-            self.addNode(add, type: select.type)
+        HStack(alignment: .bottom, spacing: 0){
+            ScrollView(.horizontal, showsIndicators:false){
+                LazyHStack(spacing: Dimen.margin.micro){
+                    ForEach(self.datas){obj in
+                        Item(data: obj)
+                            .onTapGesture {
+                                let add = self.viewModel.createNode(type: obj.type)
+                                self.addNode(add, type: obj.type)
+                            }
+                    }
+                }
+                .padding(.top, Dimen.margin.thin)
+            }
+            ImageButton(
+                isSelected: false,
+                defaultImage: Asset.icon.add,
+                sizeType: .L
+            ){_ in
+                let page:PageObject = PageProvider.getPageObject(.store)
+                self.pagePresenter.request = .movePage(page)
+            }
+            .frame(width: Dimen.icon.heavy, height: Dimen.icon.heavy)
+            .background(Color.brand.subBg)
         }
+        .frame(height: Dimen.icon.heavy + Dimen.margin.thin)
         .onReceive(self.storeModel.$hasMaterials) { materials in
             self.datas = materials
         }
+        
     }
-    
     @State private var datas:[MaterialData] = []
+    
     private func addNode(_ node:SCNNode, type:SceneWorldModel.NodeType){
         self.viewModel.addNode(
             node, type: type,
@@ -26,8 +49,58 @@ struct MyMaterials : View{
         node.normalY()
         self.viewModel.removeAllPickNode(exception: node)
     }
+    
+    struct Item: PageView {
+        @EnvironmentObject var pagePresenter:PagePresenter
+        @EnvironmentObject var storeModel:StoreModel
+        var data:MaterialData
+        var body: some View {
+            ZStack(alignment: .topTrailing){
+                ZStack(){
+                    Image(self.data.type.skin ?? "grid")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .modifier(MatchParent())
+                    Spacer().modifier(MatchParent()).background(Color.transparent.black45)
+                    Text(self.data.getFoundationDescription())
+                        .modifier(LightTextStyle(color: Color.app.white))
+                        .modifier(MatchParent())
+                }
+                .frame(width: Dimen.icon.heavy, height: Dimen.icon.heavy)
+                .clipped()
+                .padding(.top, 6)
+                .padding(.trailing, 6)
+                VStack(spacing: 0) {
+                    
+                    ImageButton(
+                        isSelected: false,
+                        defaultImage: Asset.component.button.close,
+                        sizeType: .S
+                    ){_ in
+                        self.storeModel.removeMaterial(self.data)
+                    }
+                    .background(Color.brand.subBg)
+                    .clipShape(Circle())
+                    if data.isPossibleFoundation {
+                        ImageButton(
+                            isSelected: false,
+                            defaultImage: Asset.icon.crop,
+                            sizeType: .S
+                        ){_ in
+                            
+                            let page:PageObject = PageProvider.getPageObject(.storeFoundation)
+                                .addParam(key: .data, value: data)
+                            self.pagePresenter.request = .movePage(page)
+                        }
+                        .background(Color.brand.bg)
+                        .clipShape(RoundRectMask(radius: 2))
+                    }
+                }
+            }
+        }
+    }
 }
-
+/*
 struct MyMaterialGrid: PageView {
     @EnvironmentObject var pagePresenter:PagePresenter
     var datas:[MaterialData]
@@ -52,6 +125,8 @@ struct MyMaterialGrid: PageView {
                     let page:PageObject = PageProvider.getPageObject(.store)
                     self.pagePresenter.request = .movePage(page)
                 }
+                .frame(width: Dimen.icon.heavy, height: Dimen.icon.heavy)
+                .background(Color.brand.subBg)
             }
         .onAppear(){
         }
@@ -105,7 +180,7 @@ struct MyMaterialGrid: PageView {
         }
     }
 }
-
+*/
 
 
 

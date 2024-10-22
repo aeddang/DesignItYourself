@@ -106,7 +106,7 @@ struct CircleButton_Previews: PreviewProvider {
             }
             
             CircleButton(
-                type: .icon(Asset.icon.add),
+                type: .icon(Asset.icon.edit),
             isSelected: true,
             strokeWidth: 2){_ in
                 

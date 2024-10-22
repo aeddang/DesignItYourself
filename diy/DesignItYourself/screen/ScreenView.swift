@@ -70,6 +70,7 @@ struct ScreenView: View, PageProtocol {
                 }
                 .accentColor(self.contentColor)
                 Cart()
+                    .padding(.bottom, self.pagePresenter.screenEdgeInsets.bottom)
                 if self.isLock {
                     Spacer().modifier(MatchParent()).background(Color.transparent.black70)
                 }
@@ -120,14 +121,8 @@ struct ScreenView: View, PageProtocol {
             }
             .onReceive(self.orientationChanged){ note in
                 guard let device = note.object as? UIDevice else { return }
-                if device.orientation.isPortrait || device.orientation.isLandscape {
-                    self.pagePresenter.screenOrientation = device.orientation
-                    DispatchQueue.main.asyncAfter(deadline: .now()+0.05) {
-                        let size = geometry.size
-                        PageLog.d("size " + size.debugDescription,tag: self.tag)
-                        self.pagePresenter.screenEdgeInsets = geometry.safeAreaInsets
-                        self.pagePresenter.screenSize = geometry.size
-                    }
+                if device.orientation != .unknown{
+                    self.updatePageScreen(device.orientation, geometry: geometry)
                 }
             }
             .onAppCameToForeground {
@@ -136,12 +131,11 @@ struct ScreenView: View, PageProtocol {
             }
             .onAppear(){
                 self.updatedPageColorMode()
-                let orientation = UIDevice.current.orientation
-                self.pagePresenter.screenOrientation = orientation
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                     let addPage = PageProvider.getPageObject(.create)
                     self.pagePresenter.request = .movePage(addPage)
                 }
+                self.updatePageScreen(UIDevice.current.orientation, geometry: geometry)
             }
         }
     }
@@ -152,6 +146,20 @@ struct ScreenView: View, PageProtocol {
     @State private var isLock:Bool = false
     @State private var contentColor:Color = Color.brand.content
     @State private var bgColor:Color = Color.brand.bg
+    private func updatePageScreen(_ orientation:UIDeviceOrientation, geometry:GeometryProxy){
+        self.pagePresenter.screenOrientation = orientation
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.05) {
+            let size = geometry.size
+            PageLog.d("size " + size.debugDescription,tag: self.tag)
+            self.pagePresenter.screenEdgeInsets = geometry.safeAreaInsets
+            self.pagePresenter.screenSize = size
+            if !(orientation.isLandscape || orientation.isPortrait) {
+                self.pagePresenter.screenOrientation = size.width > size.height ? .landscapeLeft : .portrait
+            }
+        }
+    }
+    
+    
     private func updatedPageColorMode(){
         let currentSystemScheme = UITraitCollection.current.userInterfaceStyle
         Color.scheme = currentSystemScheme == .dark ? .dark : .light

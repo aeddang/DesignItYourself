@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "3186861_cube_geek_magic_rubics_toy_icon.svg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

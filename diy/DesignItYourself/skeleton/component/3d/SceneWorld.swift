@@ -19,8 +19,7 @@ struct SceneWorld : View{
                     scene: scene,
                     options: [
                         .allowsCameraControl,
-                        .autoenablesDefaultLighting,
-                        .temporalAntialiasingEnabled
+                        .autoenablesDefaultLighting
                     ],
                     delegate: self.delegate
                 )
@@ -30,13 +29,8 @@ struct SceneWorld : View{
                     if let result = self.delegate.renderer?.hitTest(
                         .init(x: location.x, y: location.y)) {
                         if !result.isEmpty, let node = result.first?.node {
-                        
-                            if !self.isMultiSelect {
-                                self.viewModel.removeAllPickNode()
-                            }
-                            do {
-                                self.viewModel.pickNode(node)
-                            }
+                            self.viewModel.pickNode(node)
+                            
                         }
                     }
                 }
@@ -58,90 +52,19 @@ struct SceneWorld : View{
                         }
                     })
             }
-            VStack{
-                HStack(){
-                    Text("SelectALL")
-                        .onTapGesture {
-                            self.viewModel.pickAllNode()
-                        }
-                    
-                    Text(self.isMultiSelect ? "MultiSelect" : "SingleSelect")
-                        .onTapGesture {
-                            self.isMultiSelect.toggle()
-                        }
-                    
-                    Text("VX")
-                        .onTapGesture {
-                            self.scene?.rootNode.camera?.fieldOfView = .greatestFiniteMagnitude
-                            
-                        }
-                    Text("VY")
-                        .onTapGesture {
-                            self.resetCamera(pos: simd_float3(0,30,0))
-                        }
-                    Text("VZ")
-                        .onTapGesture {
-                            self.resetCamera(pos: simd_float3(0,0,30))
-                        }
-                }
-                HStack(){
-                    Text("Save")
-                        .onTapGesture {
-                            guard let node = self.viewModel.selectedNodes.first else {return}
-                            self.saveData = self.viewModel.getNodeData(node)?.toString
-                            self.viewModel.removeNode(node)
-                        }
-                    Text("Load")
-                        .onTapGesture {
-                            guard let data = self.saveData else {return}
-                            self.viewModel.addNode(userDataValue: data )
-                        }
-                }
-            }
-            .background(Color.gray)
         }
         .modifier(MatchParent())
-        .onAppear(){
-            if self.scene != nil {return}
-            let scene = self.viewModel.scene
-            let directionalLightNode: SCNNode = {
-                let n = SCNNode()
-                n.light = SCNLight()
-                n.light!.type = SCNLight.LightType.directional
-                n.light!.color = UIColor(white: 0.75, alpha: 1.0)
-                return n
-            }()
-
-            directionalLightNode.simdPosition = simd_float3(0,10,0) // Above the scene
-            directionalLightNode.simdOrientation = simd_quatf(
-                angle: -90 * Float.pi / 180.0,
-                axis: simd_float3(1,0,0)
-            ) 
-            scene.rootNode.addChildNode(directionalLightNode)
-            scene.rootNode.addChildNode(CoordinateGrid())
+        .onReceive(self.viewModel.$scene){ scene in
             self.scene = scene
-            self.resetCamera(pos: simd_float3(0,0,10))
+        }
+        .onAppear(){
         }
         .onDisappear{
             
         }
     }
-    @State var saveData:String? = nil
     @State var scene:SCNScene? = nil
-    @State var camera:SCNNode? = nil
-    @State var isMultiSelect:Bool = false
-    @State var scName:String? = nil
-    
-    private func resetCamera(pos:simd_float3){
-        self.camera?.removeFromParentNode()
-        let cameraNode = SCNNode()
-        let camera = SCNCamera()
-        cameraNode.camera = camera
-        cameraNode.simdPosition = pos
-        self.camera = cameraNode
-        self.scene?.rootNode.addChildNode(cameraNode)
-    }
-    
+   
     
     let delegate = SceneRendererDelegate()
     class SceneRendererDelegate: NSObject, SCNSceneRendererDelegate {

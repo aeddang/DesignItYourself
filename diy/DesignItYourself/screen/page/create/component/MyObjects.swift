@@ -8,21 +8,17 @@ struct MyObjects : View{
     @EnvironmentObject var storeModel:StoreModel
     
     var body: some View {
-        VStack{
-            ScrollView(.horizontal){
-                LazyHStack{
-                    ForEach(self.objects){obj in
-                        
-                        Item(data: obj){ node in
-                            let add = node.clone()
-                            self.addNode(add, type: obj.type)
-                        }
+        ScrollView(.horizontal, showsIndicators:false){
+            LazyHStack(spacing: Dimen.margin.micro){
+                ForEach(self.objects){obj in
+                    Item(data: obj){ node in
+                        let add = node.clone()
+                        self.addNode(add, type: obj.type)
                     }
                 }
             }
-            .frame(height: 80)
         }
-        .modifier(MatchParent())
+        .frame(height: Dimen.icon.heavy)
         .onReceive(self.viewModel.$objectNodeDatas) { nodes in
             self.objects = nodes.compactMap{$0.value}
         }
@@ -50,7 +46,7 @@ struct MyObjects : View{
                     onlyNodeSelect:false,
                     selected: self.selected
                 )
-                .frame(width: 80, height: 80)
+                .frame(width: Dimen.icon.heavy, height: Dimen.icon.heavy)
                 ImageButton(
                     isSelected: false,
                     defaultImage: Asset.component.button.close,

@@ -76,9 +76,8 @@ struct NodeScreen : View{
         item.setOrientationY(90).moveRotation(45, x: 1).moveRotation(45, z: 1)
         self.item = item
         scene.rootNode.addChildNode(item)
-        
         if let radius = item.geometry?.boundingSphere.radius {
-            cameraNode.simdPosition = simd_float3(0,0,radius*2)
+            cameraNode.simdPosition = simd_float3(0,0,radius*2.5)
             
         } else {
             var maxRadius:Float = 0
@@ -86,7 +85,7 @@ struct NodeScreen : View{
                 let radius:Float = $0.geometry?.boundingSphere.radius ?? 0
                 maxRadius = max(radius, maxRadius)
             }
-            cameraNode.simdPosition = simd_float3(0,0,maxRadius*2)
+            cameraNode.simdPosition = simd_float3(0,0,maxRadius*3)
         }
     }
     

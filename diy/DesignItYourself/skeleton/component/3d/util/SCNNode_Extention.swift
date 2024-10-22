@@ -96,7 +96,7 @@ extension SCNNode{
     
     @discardableResult
     func moveY(_ amount:Float = 1) -> SCNNode {
-        self.simdWorldPosition += simd_float1(amount)/2 * Axis.y.normal
+        self.simdWorldPosition += simd_float1(amount*SceneFactory.planckLength) * Axis.y.normal
         let history = "MY," + amount.description
         + "," + Date().timeIntervalSince1970.description
         self.updateHistory(history)
@@ -105,7 +105,7 @@ extension SCNNode{
     
     @discardableResult
     func moveZ(_ amount:Float = 1) -> SCNNode {
-        self.simdWorldPosition += simd_float1(amount)/2 * Axis.z.normal
+        self.simdWorldPosition += simd_float1(amount*SceneFactory.planckLength) * Axis.z.normal
         let history = "MZ," + amount.description
         + "," + Date().timeIntervalSince1970.description
         self.updateHistory(history)

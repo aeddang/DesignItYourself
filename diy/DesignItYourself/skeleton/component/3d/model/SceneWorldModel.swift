@@ -22,9 +22,77 @@ class SceneWorldModel:ObservableObject, PageProtocol{
     @Published private(set) var objectNodeDatas:[String:UserData] = [:]
     @Published private(set) var nodeDatas:[String:UserData] = [:]
     @Published private(set) var selectedNodes:[SCNNode] = []
+    @Published var isMultiSelect:Bool = false
     private(set) var groups:[String:[SCNNode]] = [:]
     private let factory = SceneFactory()
-    let scene = SCNScene()
+    @Published private(set) var scene = SCNScene()
+    @Published private(set) var grid:SCNNode? = nil
+    private(set) var isReady:Bool = false
+    func reset(isAllData:Bool = false){
+        self.objectNodeDatas = [:]
+        self.nodeDatas = [:]
+        self.selectedNodes = []
+        if isAllData {
+            self.groups = [:]
+            self.isMultiSelect = false
+        }
+    }
+    
+    @discardableResult
+    func resetCamera(pos:simd_float3, isAllData:Bool = false) -> SCNScene {
+        let saveData = self.getSaveData()
+        self.reset(isAllData: isAllData)
+        self.scene = SCNScene()
+        self.setupDefault()
+        self.setupCamera(pos: pos)
+        if let saveData = saveData {
+            self.setSaveData(saveData)
+        }
+        return self.scene
+    }
+    func setupDefault(){
+        let directionalLightNode: SCNNode = {
+            let n = SCNNode()
+            n.light = SCNLight()
+            n.light!.type = SCNLight.LightType.directional
+            n.light!.color = UIColor(white: 0.75, alpha: 1.0)
+            return n
+        }()
+        directionalLightNode.simdPosition = simd_float3(0,10,0) // Above the scene
+        directionalLightNode.simdOrientation = simd_quatf(
+            angle: -90 * Float.pi / 180.0,
+            axis: simd_float3(1,0,0)
+        )
+        scene.rootNode.addChildNode(directionalLightNode)
+        if let grid = self.grid {
+            scene.rootNode.addChildNode(grid)
+        }
+        
+        self.isReady = true
+    }
+    
+    func viewGrid(isOn:Bool = true){
+        if isOn {
+            if self.grid != nil {return}
+            let grid = CoordinateGrid()
+            self.grid = grid
+            scene.rootNode.addChildNode(grid)
+        } else {
+            if let grid = self.grid {
+                grid.removeFromParentNode()
+                self.grid = nil
+            }
+        }
+    }
+    
+    func setupCamera(pos:simd_float3){
+        
+        let cameraNode = SCNNode()
+        let camera = SCNCamera()
+        cameraNode.camera = camera
+        cameraNode.simdPosition = pos
+        self.scene.rootNode.addChildNode(cameraNode)
+    }
     
     func createNode(type:NodeType)->SCNNode{
         let node = self.getNode(type: type)
@@ -68,6 +136,7 @@ class SceneWorldModel:ObservableObject, PageProtocol{
     
     func removeObject(_ object:UserData) {
         guard let name = object.type.name else {return}
+        self.removeNode(type: object.type)
         self.objectNodeDatas[name] = nil
     }
     
@@ -186,8 +255,12 @@ class SceneWorldModel:ObservableObject, PageProtocol{
     }
 
     func pickNode(_ pick:SCNNode? = nil){
+        if !self.isMultiSelect {
+            self.selectedNodes = []
+        }
+        let pickName = pick?.name
         let allNodes = self.getAllNodes()
-        if let node = allNodes.first(where: {$0.name == pick?.name}) , let key = node.name {
+        if let node = allNodes.first(where: {$0.name == pickName}) , let key = node.name {
             var isSelect = false
             let keys = key.components(separatedBy: "_")
             if let find = self.selectedNodes.firstIndex(of: node) {
@@ -213,10 +286,7 @@ class SceneWorldModel:ObservableObject, PageProtocol{
                     }
                 }
             }
-        } else {
-            
         }
-        
         
         if self.selectedNodes.count == allNodes.count {
             self.selectedNodes = []
@@ -274,9 +344,25 @@ class SceneWorldModel:ObservableObject, PageProtocol{
         json["nodeDatas"] = nodes
         json["objectNodeDatas"] = objects
         let jsonString = AppUtil.getJsonString(dic: json)
-        var saveData = EntitySaveData()
+        let saveData = PersistenceController.shared.getEmptyData()
         saveData.data = jsonString
         return saveData
+    }
+    
+    func setSaveData(_ data:EntitySaveData) {
+        guard let data = data.data else {return}
+        guard let saveData = AppUtil.getJsonParam(jsonString: data) else {return}
+        if let objects = saveData["objectNodeDatas"] as? [String] {
+            let objectDatas:[UserData] = objects.compactMap{UserData.toUserData($0)}
+            objectDatas.forEach{
+                self.objectNodeDatas[$0.type.name ?? UUID().uuidString] = $0
+            }
+        }
+        if let nodes = saveData["nodeDatas"] as? [String] {
+            nodes.forEach{
+                self.addNode(userDataValue: $0)
+            }
+        }
     }
     
     
@@ -398,7 +484,6 @@ class SceneWorldModel:ObservableObject, PageProtocol{
         }
         
        
-        
         public static func == (l:NodeType, r:NodeType)-> Bool {
             switch (l, r) {
             case ( .box(let x1, let y1, let z1, let skin1), .box(let x2, let y2, let z2, let skin2)):
@@ -426,9 +511,9 @@ class SceneWorldModel:ObservableObject, PageProtocol{
                 if skin1 != skin2 {return false}
                 return true
                 
-            case (.object(let name1, let skin1), .object(let name2, let skin2)):
+            case (.object(let name1, _), .object(let name2, _)):
                 if name1 != name2 {return false}
-                if skin1 != skin2 {return false}
+                //if skin1 != skin2 {return false}
                 return true
             default: return false
             }

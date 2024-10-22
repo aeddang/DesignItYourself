@@ -139,6 +139,7 @@ struct MaterialFoundation: PageView {
                 pick()
             }
         }
+        /*
         if let completed = self.completed {
             FillButton(
                 type: .fill,
@@ -148,6 +149,7 @@ struct MaterialFoundation: PageView {
                 completed()
             }
         }
+        */
     }
     
     @State var foundationX:Float = 1

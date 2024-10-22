@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StarRate: PageView {
     @Binding var progress:Float
-    var icon:String = Asset.icon.star
+    var icon:String = ""
     var iconRange:Range = .init(0...4)
     var changeUnit:Float = 0.1
     var size:CGSize = .init(width: 150, height: 28)

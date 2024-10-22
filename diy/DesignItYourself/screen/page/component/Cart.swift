@@ -17,19 +17,7 @@ struct Cart: PageView {
     
     @StateObject var infinityScrollModel = InfinityScrollModel()
     var body: some View {
-        VStack(alignment: .leading, spacing: Dimen.margin.regular){
-            if !self.datas.isEmpty {
-                ImageButton(
-                    isSelected: false,
-                    defaultImage: Asset.icon.add,
-                    iconText: self.datas.count.description
-                ){_ in
-                    self.storeModel.complete()
-                    self.pagePresenter.request = .closeAllPopup
-                }
-                .padding(.horizontal, Dimen.margin.regular)
-            }
-            
+        HStack( spacing: 0){
             InfinityScrollView(
                 viewModel: self.infinityScrollModel,
                 axes: .horizontal,
@@ -45,8 +33,23 @@ struct Cart: PageView {
                     Item(data: material)
                 }
             }
-            .modifier(MatchHorizontal(height: 60))
+            
+            if !self.datas.isEmpty {
+                ImageButton(
+                    isSelected: false,
+                    defaultImage: Asset.icon.add,
+                    sizeType: .L,
+                    iconText: self.datas.count.description
+                ){_ in
+                    self.storeModel.complete()
+                    self.pagePresenter.request = .closeAllPopup
+                }
+                .modifier(MatchVertical(width: Dimen.icon.heavy ))
+                .background(Color.brand.subBg)
+            }
         }
+        .modifier(MatchHorizontal(height: Dimen.icon.heavy + 6))
+        .background(Color.brand.subBg.opacity(0.2))
         .opacity(self.status == .hidden ? 0 : 1)
         .onReceive(self.storeModel.$materials) { materials in
             self.datas = materials
@@ -88,7 +91,7 @@ struct Cart: PageView {
                 ){_ in
                     self.storeModel.removeMaterial(self.data)
                 }
-                .background(Color.app.white)
+                .background(Color.brand.bg)
                 .clipShape(Circle())
                 
             }
