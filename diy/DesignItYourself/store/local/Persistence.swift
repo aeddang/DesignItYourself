@@ -26,7 +26,7 @@ class PersistenceController:PageProtocol{
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
     
-    func getEmptyData()->EntitySaveData{
+    func getEmptySaveData()->EntitySaveData{
         return EntitySaveData(context: viewContext)
     }
     
@@ -52,6 +52,7 @@ class PersistenceController:PageProtocol{
         DispatchQueue.global(qos: .background).async {
             data.timestamp = Date()
             data.update = Date()
+            data.saveId = UUID().uuidString
             self.save()
             DispatchQueue.main.async {
                 completed?()
@@ -89,6 +90,33 @@ class PersistenceController:PageProtocol{
             }
         }
     }
+    
+    func getEmptyCurrentData()->EntityCurrentData{
+        return EntityCurrentData(context: viewContext)
+    }
+    func getCurrentData()->EntityCurrentData?{
+        do {
+            let request:NSFetchRequest<EntityCurrentData> = .init(entityName: "EntityCurrentData")
+            request.fetchOffset = 0
+            request.fetchLimit = 1
+            let list = try viewContext.fetch(request)
+            return list.first
+        } catch {
+            let nsError = error as NSError
+            DataLog.e("Unresolved error \(nsError), \(nsError.userInfo)", tag: self.tag)
+            return nil
+        }
+    }
+    
+    func writeCurrentData(_ data:EntityCurrentData, completed:(() -> Void)? = nil){
+        DispatchQueue.global(qos: .background).async {
+            self.save()
+            DispatchQueue.main.async {
+                completed?()
+            }
+        }
+    }
+    
     
     private func save(){
         do {

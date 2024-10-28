@@ -39,7 +39,6 @@ class StoreModel:ObservableObject, PageProtocol{
         if isReset {
             self.materials = []
         }
-        self.status = .view
     }
     
     func addMaterial(_ data:MaterialData) -> Bool{
@@ -79,4 +78,22 @@ class StoreModel:ObservableObject, PageProtocol{
     func close(){
         self.status = .hidden
     }
+    
+    func getSaveData() -> String? {
+        if self.hasMaterials.isEmpty {return nil}
+        var json:[String:Any] = [:]
+        let materials = self.hasMaterials.map{$0.toString}
+        json["materials"] = materials
+        let jsonString = AppUtil.getJsonString(dic: json)
+        return jsonString
+    }
+    
+    func setSaveData(_ data:String?) {
+        guard let saveData = AppUtil.getJsonParam(jsonString: data ?? "") else {return}
+        if let materials = saveData["materials"] as? [String] {
+            let hasMaterials:[MaterialData] = materials.compactMap{MaterialData.toData($0)}
+            self.setup(hasMaterials: hasMaterials)
+        }
+    }
+    
 }

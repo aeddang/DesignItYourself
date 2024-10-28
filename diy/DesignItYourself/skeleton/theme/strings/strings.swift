@@ -59,8 +59,9 @@ extension String {
     }
     
     struct format {
-        public static let dateFormatterRoute = "EEEE, MMMM d, yyyy"
-        public static let dateFormatterPhoto = "MM/dd hh:mm"
+        public static let dateFormatterYMDHM = "EEEE, MMMM d, yyyy hh:mm"
+        public static let dateFormatterYMD = "EEEE, MMMM d, yyyy"
+        public static let dateFormatterMDHM = "MM/dd hh:mm"
     }
     
     struct alert {
@@ -70,7 +71,7 @@ extension String {
         public static var apiErrorClient = "Please check the internet connection and try again."
         public static var networkError = "We've lost your connection."
         public static var dataError = "No data."
-        
+        public static var dataEmpty = "No data."
         
         public static var existMaterial = "already exists."
         public static var includeSelectedMaterial = "Do you want to include current material?"

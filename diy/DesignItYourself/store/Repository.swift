@@ -44,7 +44,6 @@ class Repository:ObservableObject, PageProtocol{
     
     private let apiManager = ApiManager()
     let storage = LocalStorage()
-    let persistenceController:PersistenceController
     private var anyCancellable = Set<AnyCancellable>()
     private var dataCancellable = Set<AnyCancellable>()
      
@@ -59,7 +58,6 @@ class Repository:ObservableObject, PageProtocol{
         self.networkObserver = networkObserver ?? NetworkObserver()
         self.pagePresenter = pagePresenter ?? PagePresenter()
         self.locationObserver = locationObserver ?? LocationObserver()
-        self.persistenceController = PersistenceController()
         self.setupPresenter()
         self.setupSetting()
         self.setupDataProvider()

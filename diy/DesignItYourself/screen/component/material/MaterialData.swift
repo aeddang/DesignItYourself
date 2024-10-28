@@ -25,6 +25,58 @@ extension MaterialData {
         }
         return value
     }
+    
+    var toString:String {
+        var json:[String:Any] = [:]
+        let type = self.type.toString
+        let fX = getFoundationString(self.foundationX)
+        let fY = getFoundationString(self.foundationY)
+        let fZ = getFoundationString(self.foundationZ)
+        json["type"] = type
+        json["title"] = title
+        json["text"] = text
+        json["price"] = price
+        json["unit"] = unit.description
+        json["fX"] = fX
+        json["fY"] = fY
+        json["fZ"] = fZ
+        let jsonString = AppUtil.getJsonString(dic: json)
+        return jsonString ?? ""
+        
+        func getFoundationString(_ foundation:Range<Int>?)->String {
+            guard let foundation = foundation else {return ""}
+            return foundation.lowerBound.description + "," + foundation.upperBound.description
+        }
+    }
+    
+    static func toData(_ jsonString:String) -> MaterialData? {
+        guard let saveData = AppUtil.getJsonParam(jsonString:jsonString) else {return nil}
+        guard let typeValue = saveData["type"] as? String , let type = SceneWorldModel.NodeType.toType(typeValue) else {return nil}
+        let data:MaterialData = .init(type: type)
+        
+        data.setup(
+            title: saveData["title"] as? String ,
+            text: saveData["text"] as? String ,
+            price: (saveData["price"] as? String) ,
+            unit: (saveData["unit"] as? String)?.toInt() ?? 10
+        )
+        
+        data.setFoundation(
+            x: getFoundation(saveData["fX"] as? String ),
+            y: getFoundation(saveData["fY"] as? String ),
+            z: getFoundation(saveData["fZ"] as? String )
+        )
+        return data
+        
+        func getFoundation(_ value:String?)->Range<Int>? {
+            guard let value = value else {return nil}
+            let ranges = value.components(separatedBy: ",").filter{!$0.isEmpty}
+            if ranges.count != 2 {return nil}
+            let s = ranges[0].toInt()
+            let e = ranges[1].toInt()
+            return s..<e
+        }
+    }
 }
 class MaterialData:InfinityData, ObservableObject {
     
@@ -54,6 +106,7 @@ class MaterialData:InfinityData, ObservableObject {
         self.foundationType = type
     }
     
+    @discardableResult
     func setup(title:String? = nil, text:String? = nil, price:String? = nil, unit:Int = 10) -> MaterialData {
         self.title = title
         self.text = text

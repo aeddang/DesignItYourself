@@ -12,6 +12,7 @@ extension PageID{
     static let store:PageID = "store"
     static let storeItem:PageID = "storeItem"
     static let storeFoundation:PageID = "storeFoundation"
+    static let saveDatas:PageID = "saveDatas"
 }
 
 struct PageFactory{
@@ -21,6 +22,7 @@ struct PageFactory{
         case .store : return PageStore().contentBody
         case .storeItem : return PageStoreItem().contentBody
         case .storeFoundation : return PageStoreFoundation().contentBody
+        case .saveDatas : return PageSaveDatas().contentBody
         default : return PageHome().contentBody
         }
     }

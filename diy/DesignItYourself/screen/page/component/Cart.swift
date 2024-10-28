@@ -60,7 +60,7 @@ struct Cart: PageView {
             }
         }
         .onAppear(){
-            
+            self.status = self.storeModel.status
         }
     }
     @State private var datas:[MaterialData] = []

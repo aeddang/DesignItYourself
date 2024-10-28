@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		310F96062C6F06FE00D5D188 /* SceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310F96052C6F06FE00D5D188 /* SceneFactory.swift */; };
+		3166469E2CC9ACB500F843C5 /* SavedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3166469D2CC9ACAA00F843C5 /* SavedList.swift */; };
+		316646A02CC9CCFE00F843C5 /* InputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3166469F2CC9CCEF00F843C5 /* InputSheet.swift */; };
+		316646A32CC9DB7600F843C5 /* Mnemosyne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316646A22CC9DB6C00F843C5 /* Mnemosyne.swift */; };
 		316C044D2C901A6300B79400 /* PageStoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316C044C2C901A6300B79400 /* PageStoreItem.swift */; };
 		316C044F2C901CD400B79400 /* MaterialFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316C044E2C901CD400B79400 /* MaterialFoundation.swift */; };
 		316C04512C90293200B79400 /* PageStoreFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316C04502C90293200B79400 /* PageStoreFoundation.swift */; };
@@ -190,6 +193,9 @@
 
 /* Begin PBXFileReference section */
 		310F96052C6F06FE00D5D188 /* SceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneFactory.swift; sourceTree = "<group>"; };
+		3166469D2CC9ACAA00F843C5 /* SavedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedList.swift; sourceTree = "<group>"; };
+		3166469F2CC9CCEF00F843C5 /* InputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSheet.swift; sourceTree = "<group>"; };
+		316646A22CC9DB6C00F843C5 /* Mnemosyne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mnemosyne.swift; sourceTree = "<group>"; };
 		316C044C2C901A6300B79400 /* PageStoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStoreItem.swift; sourceTree = "<group>"; };
 		316C044E2C901CD400B79400 /* MaterialFoundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialFoundation.swift; sourceTree = "<group>"; };
 		316C04502C90293200B79400 /* PageStoreFoundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStoreFoundation.swift; sourceTree = "<group>"; };
@@ -382,6 +388,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3166469B2CC9AC7700F843C5 /* save */ = {
+			isa = PBXGroup;
+			children = (
+				3166469C2CC9ACA300F843C5 /* component */,
+				31B628D22CC790C20086DE47 /* PageSaveDatas.swift */,
+			);
+			path = save;
+			sourceTree = "<group>";
+		};
+		3166469C2CC9ACA300F843C5 /* component */ = {
+			isa = PBXGroup;
+			children = (
+				3166469D2CC9ACAA00F843C5 /* SavedList.swift */,
+			);
+			path = component;
+			sourceTree = "<group>";
+		};
+		316646A12CC9DB5100F843C5 /* usecase */ = {
+			isa = PBXGroup;
+			children = (
+				316646A22CC9DB6C00F843C5 /* Mnemosyne.swift */,
+			);
+			path = usecase;
+			sourceTree = "<group>";
+		};
 		3179B0A12C76C3E4006CB96A /* component */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,9 +440,9 @@
 				3184DED52CA27A78006690E2 /* component */,
 				3184DED12CA2596C006690E2 /* model */,
 				3184DEC92CA23521006690E2 /* create */,
+				3166469B2CC9AC7700F843C5 /* save */,
 				3184DEC82CA23509006690E2 /* store */,
 				317CE13C2C64419F00CEAD74 /* PageFactory.swift */,
-				31B628D22CC790C20086DE47 /* PageSaveDatas.swift */,
 				317CE13D2C64419F00CEAD74 /* PageHome.swift */,
 			);
 			path = page;
@@ -466,6 +497,7 @@
 		317CE1592C64419F00CEAD74 /* store */ = {
 			isa = PBXGroup;
 			children = (
+				316646A12CC9DB5100F843C5 /* usecase */,
 				318A40892C8527E5001BA2B7 /* manager */,
 				317CE14F2C64419F00CEAD74 /* api */,
 				317CE1562C64419F00CEAD74 /* local */,
@@ -995,6 +1027,7 @@
 		3184DED52CA27A78006690E2 /* component */ = {
 			isa = PBXGroup;
 			children = (
+				3166469F2CC9CCEF00F843C5 /* InputSheet.swift */,
 				3184DED62CA27A97006690E2 /* Cart.swift */,
 			);
 			path = component;
@@ -1171,6 +1204,7 @@
 				3181A2002C632C8B00312CCF /* ScheduleExcutor.swift in Sources */,
 				3181A2B42C632D1300312CCF /* CustomButtonStyle.swift in Sources */,
 				3181A2042C632C8B00312CCF /* ViewUtil.swift in Sources */,
+				3166469E2CC9ACB500F843C5 /* SavedList.swift in Sources */,
 				3181A27F2C632D1300312CCF /* ImagePicker.swift in Sources */,
 				3181A2862C632D1300312CCF /* CustomAssetResourceLoader.swift in Sources */,
 				3181A2772C632D1300312CCF /* SortButton.swift in Sources */,
@@ -1207,6 +1241,7 @@
 				31A94C082CC62C11001F0442 /* WorldControl.swift in Sources */,
 				318B794D2C8EBC5F001794A9 /* MaterialUi.swift in Sources */,
 				317FF5F82BFAEB560012E929 /* DesignItYourself.xcdatamodeld in Sources */,
+				316646A32CC9DB7600F843C5 /* Mnemosyne.swift in Sources */,
 				3181A2722C632D1300312CCF /* FillButton.swift in Sources */,
 				3181A2752C632D1300312CCF /* RectButton.swift in Sources */,
 				3184DECB2CA2353A006690E2 /* PageCreate.swift in Sources */,
@@ -1307,6 +1342,7 @@
 				3181A1FA2C632C8B00312CCF /* AESUtil.swift in Sources */,
 				3181A2A22C632D1300312CCF /* Sector.swift in Sources */,
 				317FF5F52BFAEB560012E929 /* Persistence.swift in Sources */,
+				316646A02CC9CCFE00F843C5 /* InputSheet.swift in Sources */,
 				3181A1EE2C632C8B00312CCF /* OffsetKey.swift in Sources */,
 				3181A2EF2C63377500312CCF /* InfinityScrollView.swift in Sources */,
 				318A408B2C8528AB001BA2B7 /* MyFileManager.swift in Sources */,

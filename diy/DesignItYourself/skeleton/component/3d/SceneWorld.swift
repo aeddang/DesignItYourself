@@ -13,13 +13,16 @@ struct SceneWorld : View{
     @EnvironmentObject var viewModel:SceneWorldModel
     let fileManager:MyFileManager = .init()
     var body: some View {
-        ZStack(alignment: .topTrailing){
+        Group{
             if let scene = self.scene {
                 SceneView(
                     scene: scene,
                     options: [
                         .allowsCameraControl,
-                        .autoenablesDefaultLighting
+                        .autoenablesDefaultLighting,
+                        .temporalAntialiasingEnabled,
+                        .rendersContinuously,
+                        .jitteringEnabled
                     ],
                     delegate: self.delegate
                 )
@@ -57,23 +60,21 @@ struct SceneWorld : View{
         .onReceive(self.viewModel.$scene){ scene in
             self.scene = scene
         }
-        .onAppear(){
-        }
-        .onDisappear{
-            
-        }
+       
     }
     @State var scene:SCNScene? = nil
-   
     
     let delegate = SceneRendererDelegate()
     class SceneRendererDelegate: NSObject, SCNSceneRendererDelegate {
         var renderer: SCNSceneRenderer?
         var onEachFrame: (() -> ())? = nil
+        
         func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+            
             if self.renderer == nil {
                 self.renderer = renderer
             }
+            
         }
     }
 }

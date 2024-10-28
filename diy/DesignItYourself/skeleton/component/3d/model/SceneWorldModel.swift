@@ -94,6 +94,12 @@ class SceneWorldModel:ObservableObject, PageProtocol{
         self.scene.rootNode.addChildNode(cameraNode)
     }
     
+    func getCamera(){
+        let projectionTransform = self.scene.rootNode.simdEulerAngles
+        DataLog.d(projectionTransform.debugDescription, tag: self.tag)
+        
+    }
+    
     func createNode(type:NodeType)->SCNNode{
         let node = self.getNode(type: type)
         node.name = UUID().uuidString
@@ -155,23 +161,34 @@ class SceneWorldModel:ObservableObject, PageProtocol{
         data.addHistory(value)
     }
     
+    func getNode(_ name:String) -> SCNNode?{
+        let allNodes = self.getAllNodes()
+        if let origin = name.components(separatedBy: "_").first ,
+           let node = allNodes.first(where: {$0.name?.hasPrefix(origin) == true }){
+            return node
+        }
+        return nil
+    }
+    
     func getAllNodes() -> [SCNNode]{
         return self.scene.rootNode.childNodes.filter{$0.name?.isEmpty == false}
     }
     
-    func addNode(_ node:SCNNode, type:NodeType, objectName:String? = nil){
-        let key = UUID().uuidString
-        node.setName(key)
+    func addNode(_ node:SCNNode, type:NodeType,
+                 objectName:String? = nil, name:String? = nil){
+        let key = name ?? UUID().uuidString
+        
         var userData:UserData? = nil
         if let name = objectName, let data = self.objectNodeDatas[name] {
             userData = UserData.toUserData(data.toString)
         } else {
             userData = .init(type: type)
         }
-        if let data = userData {
-            self.nodeDatas[key] = data
+        if let data = userData , let origin = key.components(separatedBy: "_").first {
+            self.nodeDatas[origin] = data
         }
-      
+        node.setName(key)
+        userData?.setName(key)
         self.scene.rootNode.addChildNode(node)
     }
     
@@ -200,7 +217,8 @@ class SceneWorldModel:ObservableObject, PageProtocol{
     
     func addNode(userData:UserData){
         let node = self.createNode(userData: userData)
-        self.addNode(node, type: userData.type, objectName: userData.type.name)
+        self.addNode(node, type: userData.type, objectName: userData.type.name, name: userData.name)
+        
         userData.history.forEach{ h in
             node.replay(h)
         }
@@ -238,7 +256,7 @@ class SceneWorldModel:ObservableObject, PageProtocol{
     private func removeNodeData(_ node:SCNNode){
         guard let key = node.name else {return}
         let keys = key.components(separatedBy: "_")
-        guard keys.first != nil else {return}
+        guard let originName = keys.first else {return}
         if keys.count == 2, let groupId = keys.last, var group = self.groups[groupId] {
             if let find = group.firstIndex(of: node) {
                 group.remove(at: find)
@@ -247,7 +265,7 @@ class SceneWorldModel:ObservableObject, PageProtocol{
                 }
             }
         }
-        self.nodeDatas.removeValue(forKey: key)
+        self.nodeDatas.removeValue(forKey: originName)
         if let find = self.selectedNodes.firstIndex(of: node) {
             self.selectedNodes.remove(at: find)
             self.pickNode()
@@ -311,7 +329,7 @@ class SceneWorldModel:ObservableObject, PageProtocol{
     }
     
     func bindingGroup(nodes:[SCNNode]){
-        let groupId = UUID().hashValue
+        let groupId = UUID().uuidString
         var group:[SCNNode] = []
         nodes.forEach{ n in
             guard let key = n.name else {return}
@@ -319,10 +337,13 @@ class SceneWorldModel:ObservableObject, PageProtocol{
             if keys.count == 2, let gid = keys.last {
                 self.groups.removeValue(forKey: gid)
             }
-            n.name = (keys.first ?? key) + "_" + groupId.description
+            let originName = (keys.first ?? key)
+            let name = originName + "_" + groupId
+            n.setName(name)
+            self.nodeDatas[originName]?.setName(name)
             group.append(n)
         }
-        self.groups[groupId.description] = group
+        self.groups[groupId] = group
     }
     
     func breakGroup(nodes:[SCNNode]){
@@ -332,11 +353,14 @@ class SceneWorldModel:ObservableObject, PageProtocol{
             if keys.count == 2, let gid = keys.last {
                 self.groups.removeValue(forKey: gid)
             }
-            n.name = (keys.first ?? key)
+            
+            let name = (keys.first ?? key)
+            n.setName(name)
+            self.nodeDatas[name]?.setName(name)
         }
     }
     
-    func getSaveData() -> EntitySaveData? {
+    func getSaveData() -> String? {
         if self.nodeDatas.isEmpty {return nil}
         var json:[String:Any] = [:]
         let nodes = self.nodeDatas.values.map{$0.toString}
@@ -344,14 +368,11 @@ class SceneWorldModel:ObservableObject, PageProtocol{
         json["nodeDatas"] = nodes
         json["objectNodeDatas"] = objects
         let jsonString = AppUtil.getJsonString(dic: json)
-        let saveData = PersistenceController.shared.getEmptyData()
-        saveData.data = jsonString
-        return saveData
+        return jsonString
     }
     
-    func setSaveData(_ data:EntitySaveData) {
-        guard let data = data.data else {return}
-        guard let saveData = AppUtil.getJsonParam(jsonString: data) else {return}
+    func setSaveData(_ data:String?) {
+        guard let saveData = AppUtil.getJsonParam(jsonString: data ?? "") else {return}
         if let objects = saveData["objectNodeDatas"] as? [String] {
             let objectDatas:[UserData] = objects.compactMap{UserData.toUserData($0)}
             objectDatas.forEach{
@@ -363,6 +384,18 @@ class SceneWorldModel:ObservableObject, PageProtocol{
                 self.addNode(userDataValue: $0)
             }
         }
+        self.nodeDatas.forEach{
+            let data = $0.value
+            if let keys = data.name?.components(separatedBy: "_") {
+                if let groupId = keys[safe: 1],  let node = self.getNode($0.key) {
+                    if self.groups[groupId] != nil {
+                        self.groups[groupId]?.append(node)
+                    } else {
+                        self.groups[groupId] = [node]
+                    }
+                }
+            }
+        }
     }
     
     
@@ -371,6 +404,8 @@ class SceneWorldModel:ObservableObject, PageProtocol{
         fileprivate(set) var history:[String] = []
         fileprivate(set) var childHistory:[[String]] = []
         private(set) var name:String? = nil
+        
+        @discardableResult
         func setName(_ value:String) -> UserData {
             self.name = value
             return self
@@ -401,7 +436,7 @@ class SceneWorldModel:ObservableObject, PageProtocol{
             let ch = childHistory.reduce("", { c0, c1 in
                 c0 + "$" + c1.reduce("", {$0 + "*" + $1})
             })
-            return type + "^" + h + "^" + ch
+            return type + "^" + h + "^" + ch + "^" + (self.name ?? "")
         }
         
         static func toUserData(_ value:String) -> UserData? {
@@ -416,6 +451,9 @@ class SceneWorldModel:ObservableObject, PageProtocol{
                 let historys = childHistoryValue.components(separatedBy: "$").filter{!$0.isEmpty}
                 let childHistorys = historys.map{$0.components(separatedBy: "*").filter{!$0.isEmpty}}
                 userData.childHistory = childHistorys
+            }
+            if let prevName = div[safe:3], prevName.isEmpty == false {
+                userData.name = prevName
             }
             return userData
         }

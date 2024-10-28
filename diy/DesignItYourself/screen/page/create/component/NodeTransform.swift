@@ -36,6 +36,7 @@ struct NodeTransform : View{
             }
             self.getNodeControlBody()
         }
+        .padding(.all, Dimen.margin.tiny)
         .modifier(MatchParent())
         .toast(isPresenting: self.$showToast){
             AlertToast(type: .regular, title: self.toastMsg)
@@ -185,9 +186,11 @@ struct NodeTransform : View{
                 self.isBindingGroup = true
                 self.isBreakGroup = false
             }
-            self.isCreatObject = self.transformNodes.first(where: {
+            let transformNodes = self.transformNodes
+            let isCreatObject = transformNodes.first(where: {
                 self.viewModel.getNodeData($0)?.type.isObject == true
             }) == nil
+            self.isCreatObject = isCreatObject 
         } else {
             if let select = self.transformNodes.first {
                 self.transformPropertys = self.viewModel.getNodeData(select)?.type.hasProperty ?? []

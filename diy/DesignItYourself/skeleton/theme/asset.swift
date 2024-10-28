@@ -41,6 +41,7 @@ extension Asset{
         public static let cubeAll = "cubeAll"
         
         public static let save = "save"
+        public static let saveList = "saveList"
         public static let gridOn = "gridOn"
         public static let gridOff = "gridOff"
         
@@ -53,6 +54,7 @@ extension Asset{
         public static let rectRotateR = "rectRotateR"
         public static let rectArrow = "rectArrow"
         public static let crop = "crop"
+        public static let share = "share"
     }
     
     struct component {

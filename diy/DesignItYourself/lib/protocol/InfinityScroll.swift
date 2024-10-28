@@ -34,6 +34,7 @@ enum InfinityScrollType :Equatable{
     }
 }
 
+
 open class InfinityScrollModel:ComponentObservable{
    
     
