@@ -3,7 +3,7 @@ import SwiftUI
 import SceneKit
 import UIKit
 
-struct NodeScreen : View{
+struct NodeScreen : View, PageProtocol{
     @EnvironmentObject var viewModel:SceneWorldModel
     
     var type:SceneWorldModel.NodeType

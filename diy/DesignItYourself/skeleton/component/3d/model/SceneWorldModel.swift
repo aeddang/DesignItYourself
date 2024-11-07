@@ -50,6 +50,8 @@ class SceneWorldModel:ObservableObject, PageProtocol{
         }
         return self.scene
     }
+    
+    
     func setupDefault(){
         let directionalLightNode: SCNNode = {
             let n = SCNNode()
@@ -94,11 +96,7 @@ class SceneWorldModel:ObservableObject, PageProtocol{
         self.scene.rootNode.addChildNode(cameraNode)
     }
     
-    func getCamera(){
-        let projectionTransform = self.scene.rootNode.simdEulerAngles
-        DataLog.d(projectionTransform.debugDescription, tag: self.tag)
-        
-    }
+   
     
     func createNode(type:NodeType)->SCNNode{
         let node = self.getNode(type: type)

@@ -45,7 +45,6 @@ extension String {
         
         public static let upload = "Upload"
         public static let login = "Login"
-        
         public static let locations = "My Locations"
         public static let routes = "My Routes"
         public static let captures = "Captured Images"
@@ -53,7 +52,6 @@ extension String {
         public static let createCategory = "Create Category"
         public static let editPhoto = "Edit photo"
         public static let capture = "Take a photo"
-       
         public static let uncheck = "Uncheck"
         public static let check = "Check"
     }

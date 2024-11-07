@@ -141,21 +141,27 @@ struct CPPlayer<Ui>: PageView where Ui: View {
         .onReceive(self.viewModel.$isPlay) { _ in
             self.autoUiHidden.cancel()
         }
-        
         .onReceive(self.viewModel.$request) { evt in
             guard let evt = evt else { return }
             switch evt {
             case .usePip(let use) :
                 self.uiModel.usePip = use
             case .seekForward(let seek, _, _, _) :
-                if self.viewModel.playerUiStatus == .hidden {
+                
+                switch self.viewModel.playerUiStatus {
+                case .hidden :
                     self.uiModel.seekForward = seek.toInt()
+                default : break
                 }
+                
                 self.delayAutoResetSeekMove()
             case .seekBackword(let seek, _, _, _) :
-                if self.viewModel.playerUiStatus == .hidden {
+                switch self.viewModel.playerUiStatus {
+                case .hidden :
                     self.uiModel.seekBackward = seek.toInt()
+                default : break
                 }
+                
                 self.delayAutoResetSeekMove()
             
             default : break

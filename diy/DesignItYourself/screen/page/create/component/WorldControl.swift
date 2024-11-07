@@ -28,13 +28,6 @@ struct WorldControl : View{
                 self.viewModel.resetCamera(pos: .init(0, 0, 15))
             }
             
-            ImageButton(
-                isSelected: false,
-                defaultImage: Asset.icon.cameraReset,
-                sizeType: .L
-            ){_ in
-                self.viewModel.getCamera()
-            }
         }
         .padding(.all, Dimen.margin.regular)
         .onReceive(self.viewModel.$grid){ grid in
